@@ -1,0 +1,795 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cost Functions (Cost) &mdash; GlobalBioIm Library 1.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.1 documentation" href="index.html"/>
+        <link rel="next" title="Optimization Algorithms (Opti)" href="opti.html"/>
+        <link rel="prev" title="Linear Operators (LinOp)" href="linop.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GlobalBioIm Library
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Technical Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cost Functions (Cost)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#costcomplexhyperbolic">CostComplexHyperBolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costkullleib">CostKullLeib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costl1">CostL1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costl2">CostL2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costl2composition">CostL2Composition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costmixnorm21">CostMixNorm21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costmixnormschatt1">CostMixNormSchatt1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-Cost.IndicatorFunctions">IndicatorFunctions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#costindicator">CostIndicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#costrectangle">CostRectangle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#costreals">CostReals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#costnonneg">CostNonNeg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#costcomplexring">CostComplexRing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#costcomplexcircle">CostComplexCircle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#costcomplexdisk">CostComplexDisk</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="opti.html">Optimization Algorithms (Opti)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methodssummary.html">List of Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="propertiessummary.html">List of Properties</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="http://bigwww.epfl.ch">Biomedical Imaging Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GlobalBioIm Library</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Cost Functions (Cost)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/cost.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cost-functions-cost">
+<h1>Cost Functions (Cost)<a class="headerlink" href="#cost-functions-cost" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div>This section contains cost functions classes which all derive from the abstract class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</div></blockquote>
+<span class="target" id="module-Cost"></span><div class="section" id="costcomplexhyperbolic">
+<h2>CostComplexHyperBolic<a class="headerlink" href="#costcomplexhyperbolic" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostComplexHyperBolic">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostComplexHyperBolic</code><span class="sig-paren">(</span><em>sz</em>, <em>epsilon</em>, <em>index</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostComplexHyperBolic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostComplexHyperBolic: Hyperbolic cost function
+$$C(\mathrm{x}) := \sum_{k=1}^K \sqrt{\sum_{l=1}^L (\mathrm{x}-y)_{k,l}^2 + \varepsilon^2}$$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – dimensions along which the l2-norm will be applied (inner sum over l)</li>
+<li><strong>epsilon</strong> – \(\in \mathbb{R}_+\) smoothing parameter (default
+\(10^{-3}\))</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
+<p><strong>Example</strong> C=CostComplexHyperBolic(sz,epsilon,index,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dl class="method">
+<dt id="Cost.CostComplexHyperBolic.applyGrad_">
+<code class="descname">applyGrad_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostComplexHyperBolic.applyGrad_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostComplexHyperBolic.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostComplexHyperBolic.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costkullleib">
+<h2>CostKullLeib<a class="headerlink" href="#costkullleib" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostKullLeib">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostKullLeib</code><span class="sig-paren">(</span><em>sz</em>, <em>y</em>, <em>bet</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostKullLeib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostKullLeib: KullbackLeibler divergence
+$$ C(\mathrm{x}) :=\sum_n D_{KL}(\mathrm{x}_n)$$
+where
+$$ D_{KL}(\mathrm{z}_n) := \left\lbrace \begin{array}[ll]
+\mathrm{z}_n - \mathrm{y}_n \log(\mathrm{z}_n + \beta) &amp; \text{ if } \mathrm{z}_n + \beta &gt;0  \newline
++ \infty &amp;  \text{otherwise}.
+\end{array} \right.$$</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bet</strong> – smoothing parameter \(\beta\) (default 0)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> C=CostKullLeib(sz,y,bet)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dl class="method">
+<dt id="Cost.CostKullLeib.applyGrad_">
+<code class="descname">applyGrad_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostKullLeib.applyGrad_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostKullLeib.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostKullLeib.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostKullLeib.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostKullLeib.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costl1">
+<h2>CostL1<a class="headerlink" href="#costl1" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostL1">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostL1</code><span class="sig-paren">(</span><em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostL1: L1 norm cost function
+$$C(x) := \|\mathrm{x} - \mathrm{y}\|_1 $$</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
+<p><strong>Example</strong> C=CostL1(sz,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dl class="method">
+<dt id="Cost.CostL1.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL1.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.
+$$ \mathrm{prox}_{\alpha C}(\mathrm{x}) = \mathrm{sign(x-y)} \mathrm{max}(\vert x-y \vert- \alpha,0)+  \mathrm{y} $$</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostL1.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL1.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costl2">
+<h2>CostL2<a class="headerlink" href="#costl2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostL2">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostL2</code><span class="sig-paren">(</span><em>sz</em>, <em>y</em>, <em>wght</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostL2: Weighted L2 norm cost function
+$$C(\mathrm{x}) := \frac12\|\mathrm{x} - \mathrm{y}\|^2_W = \frac12 (\mathrm{x} - \mathrm{y})^T W (\mathrm{x} - \mathrm{y}) $$</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>W</strong> – weighting <code class="xref py py-class docutils literal"><span class="pre">LinOpDiag</span></code> object or scalar (default 1)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> C=CostL2(sz,y,wght)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dl class="method">
+<dt id="Cost.CostL2.applyGrad_">
+<code class="descname">applyGrad_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2.applyGrad_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.
+$$ \nabla C(\mathrm{x}) = \mathrm{W (x - y)} $$
+It is L-Lipschitz continuous with \( L \leq \|\mathrm{W}\|\).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostL2.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>   
+$$ \mathrm{prox}_{\alpha C}(\mathrm{x}) = \frac{\mathrm{x} + \alpha \mathrm{Wy}}{1 + \alpha \mathrm{W}} $$
+where the division is component-wise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostL2.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostL2.makeComposition_">
+<code class="descname">makeComposition_</code><span class="sig-paren">(</span><em>this</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2.makeComposition_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>. Instantiates a
+<code class="xref py py-class docutils literal"><span class="pre">CostL2Composition</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costl2composition">
+<h2>CostL2Composition<a class="headerlink" href="#costl2composition" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostL2Composition">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostL2Composition</code><span class="sig-paren">(</span><em>H1</em>, <em>H2</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2Composition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.OperationsOnMaps.CostComposition</span></code></p>
+<p>CostL2Composition: Composition of a <code class="xref py py-class docutils literal"><span class="pre">CostL2</span></code> with a
+<code class="xref py py-class docutils literal"><span class="pre">Map</span></code>
+$$C(\mathrm{x}) := \frac12\|\mathrm{Hx} - \mathrm{y}\|^2_W = \frac12 (\mathrm{Hx} - \mathrm{y})^T W (\mathrm{Hx} - \mathrm{y}) $$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>H1</strong> – <code class="xref py py-class docutils literal"><span class="pre">CostL2</span></code> object</li>
+<li><strong>H2</strong> – <code class="xref py py-class docutils literal"><span class="pre">Map</span></code> object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostL2</span></code> and <code class="xref py py-class docutils literal"><span class="pre">CostComposition</span></code> are inherited.</p>
+<p><strong>Example</strong> C=CostL2Composition(H1,H2)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostL2</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostComposition</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dl class="method">
+<dt id="Cost.CostL2Composition.applyGrad_">
+<code class="descname">applyGrad_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2Composition.applyGrad_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">CostComposition</span></code>.
+$$ \nabla C(\mathrm{x}) = \mathrm{J_{H}^* W (Hx - y)} $$</p>
+<p>If <code class="xref py py-attr docutils literal"><span class="pre">doPrecomputation</span></code> is true, \(\mathrm{W}\) is a scaled identity and \(\mathrm{H}\)
+is a <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, then  \(\mathrm{H^* Wy} \) is precomputed and the gradient
+is evaluated using the <code class="xref py py-meth docutils literal"><span class="pre">applyHtH()</span></code> method, i.e.
+$$ \nabla C(\mathrm{x}) = \mathrm{W H^{\star}Hx} -  \mathrm{H^* Wy}  $$</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostL2Composition.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2Composition.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">CostComposition</span></code>.
+Implemented</p>
+<blockquote>
+<div><ul class="simple">
+<li>if the operator \(\alpha\mathrm{H^{\star}WH + I}  \) is invertible:
+$$ \mathrm{y} = (\alpha\mathrm{H^{\star}WH + I} )^{-1} (\alpha \mathrm{H^TWy +x})$$</li>
+<li>if \(\mathrm{H}\) is a <code class="xref py py-class docutils literal"><span class="pre">LinOpComposition</span></code>
+composing a <code class="xref py py-class docutils literal"><span class="pre">LinOpDownsample</span></code> with a
+<code class="xref py py-class docutils literal"><span class="pre">LinOpConv</span></code>. The implementation follows [1].</li>
+</ul>
+</div></blockquote>
+<p><strong>Note</strong> If <code class="xref py py-attr docutils literal"><span class="pre">doPrecomputation</span></code> is true, then \(\mathrm{H^TWy}\) is stored.</p>
+<p><strong>References</strong></p>
+<p>[1] Zhao Ningning et al. “Fast Single Image Super-Resolution Using a New Analytical Solution for l2-l2 Problems”.
+IEEE Transactions on Image Processing, 25(8), 3683-3697 (2016).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostL2Composition.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2Composition.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">CostComposition</span></code>.
+$$ C(\mathrm{x}) = \frac12\|\mathrm{Hx} - \mathrm{y}\|^2_W  $$</p>
+<p>If <code class="xref py py-attr docutils literal"><span class="pre">doPrecomputation</span></code> is true, \(\mathrm{W}\) is a scaled identity and \(\mathrm{H}\)
+is a <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, then  \(\mathrm{H^* Wy} \) and \(\|
+\mathrm{y} \|^2_{\mathrm{W}}\) are
+precomputed and  \(C(\mathrm{x}) \) is evaluated using the
+<code class="xref py py-meth docutils literal"><span class="pre">applyHtH()</span></code> method, i.e.
+$$ C(\mathrm{x}) = \frac12 \langle \mathrm{W H^{\star}Hx,x} \rangle - \langle \mathrm{x}, \mathrm{H^* Wy}  \rangle  + \frac12\| \mathrm{y} \|^2_{\mathrm{W}}$$</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostL2Composition.makeComposition_">
+<code class="descname">makeComposition_</code><span class="sig-paren">(</span><em>this</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2Composition.makeComposition_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>. Instantiates a new
+<code class="xref py py-class docutils literal"><span class="pre">CostL2Compoisition</span></code> with the updated composed
+<code class="xref py py-class docutils literal"><span class="pre">Map</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costmixnorm21">
+<h2>CostMixNorm21<a class="headerlink" href="#costmixnorm21" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostMixNorm21">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostMixNorm21</code><span class="sig-paren">(</span><em>sz</em>, <em>index</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNorm21" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostMixNorm21: Mixed norm 2-1 cost function
+$$C(\mathrm{x}) := \sum_{k=1}^K \sqrt{\sum_{l=1}^L (\mathrm{x}-y)_{k,l}^2}= \sum_{k=1}^K \Vert (\mathrm{x-y})_{k\cdot} \Vert_2$$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – dimensions along which the l2-norm will be applied (inner sum over l)</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
+<p><strong>Example</strong> C=CostMixNorm21(sz,index,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dl class="method">
+<dt id="Cost.CostMixNorm21.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNorm21.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>
+$$ \mathrm{prox}_{\alpha C}(\mathrm{x}) = \left\lbrace
+\begin{array}{ll}
+\mathrm{x}_{k\cdot}
+\left(1-\frac{\alpha}{\Vert(\mathrm{x}-y)_{k\cdot}\Vert_2}
+\right) &amp; \; \mathrm{if } \;
+\Vert (\mathrm{x-y})_{k\cdot}\Vert_2 &gt; \alpha,
+\newline
+0 &amp; \; \mathrm{otherwise},
+\end{array}\right. \; \forall \, k $$
+where the division is component-wise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostMixNorm21.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNorm21.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costmixnormschatt1">
+<h2>CostMixNormSchatt1<a class="headerlink" href="#costmixnormschatt1" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostMixNormSchatt1">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostMixNormSchatt1</code><span class="sig-paren">(</span><em>sz</em>, <em>p</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNormSchatt1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostMixNormSchatt1 Mixed Schatten-l1 Norm [1]
+$$C(\mathrm{x}) :=   \sum_n  \| \mathrm{x}_{n\cdot} \|_{Sp}, $$
+for \(p \in [1,+\infty]\). Here, \(\|\cdot\|_{Sp}\)  denotes the p-order Shatten norm 
+defined by
+$$ \|\mathrm{X}\|_{Sp} = \left[\sum_k (\sigma_k(\mathrm{X}))^p\right]^{1/p},$$
+where \(\sigma_k(\mathrm{X})\) is the k-th singular value of \(\mathrm{X}\). In other words it is the lp-norm
+of the signular values of  \(\mathrm{X}\).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> – order of the Shatten norm (default 1)</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
+<p><strong>Note</strong> The actual implementation works for size (sz) having one of the two following forms:</p>
+<ul class="simple">
+<li>(NxMx3) such that the Sp norm will be applied on each symetric 2x2</li>
+</ul>
+<p>$$ \begin{bmatrix} \mathrm{x}_{n m 1} &amp; \mathrm{x}_{n m 2} \newline 
+\mathrm{x}_{n m 2} &amp; \mathrm{x}_{n m 3} \end{bmatrix}$$
+and then the \(\ell_1\) norm on the two other dimensions.</p>
+<ul class="simple">
+<li>(NxMxKx6) such that the Sp norm will be applied on each symetric 3x3</li>
+</ul>
+<p>$$ \begin{bmatrix} \mathrm{x}_{n m k 1} &amp; \mathrm{x}_{n m k 2} &amp; \mathrm{x}_{n m k 3} \newline 
+\mathrm{x}_{n m k 2} &amp; \mathrm{x}_{n m k 4} &amp; \mathrm{x}_{n m k 5} \newline 
+\mathrm{x}_{n m k 3} &amp; \mathrm{x}_{n m k 5} &amp; \mathrm{x}_{n m k 6} \newline  \end{bmatrix}$$
+and then the \(\ell_1\) norm on the three other dimensions.</p>
+<p><strong>References</strong>
+[1] Lefkimmiatis, S., Ward, J. P., &amp; Unser, M. (2013). Hessian Schatten-norm regularization
+for linear inverse problems. IEEE transactions on image processing, 22(5), 1873-1888.</p>
+<p><strong>Example</strong> C=CostMixNormSchatt1(sz,p,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dl class="method">
+<dt id="Cost.CostMixNormSchatt1.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNormSchatt1.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostMixNormSchatt1.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNormSchatt1.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Cost.IndicatorFunctions">
+<span id="indicatorfunctions"></span><h2>IndicatorFunctions<a class="headerlink" href="#module-Cost.IndicatorFunctions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="costindicator">
+<h3>CostIndicator<a class="headerlink" href="#costindicator" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Cost.IndicatorFunctions.CostIndicator">
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostIndicator</code><span class="sig-paren">(</span><em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostIndicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostIndicator: Indicator cost function
+$$ C(\mathrm{x}) = \left\lbrace \begin{array}[l] \text{0~if } \mathrm{x -y} \in \mathrm{C},  
+\newline + \infty \text{ otherwise.} \end{array} \right. $$
+where \(\mathrm{C} \subset \mathrm{X} \) is a constraint set.</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited</p>
+<p><strong>Note</strong> <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code> is an generic class for all
+indicator cost functions</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="costrectangle">
+<h3>CostRectangle<a class="headerlink" href="#costrectangle" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Cost.IndicatorFunctions.CostRectangle">
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostRectangle</code><span class="sig-paren">(</span><em>sz</em>, <em>xmin</em>, <em>xmax</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostRectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostIndicator</span></code></p>
+<p>CostRectangle:  Rectangle Indicator function
+$$ C(x) = \left\lbrace \begin{array}[l]
+\text{0~if } \mathrm{real(xmin)} \leq \mathrm{imag(x-y)} \leq \mathrm{real(xmax)}
+\text{ and }  \mathrm{imag(xmin)} \leq \mathrm{imag(x-y)} \leq \mathrm{imag(xmax)},  \newline
++ \infty \text{ otherwise.} \end{array} \right. $$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>xmin</strong> – minimum value (default -inf + 0i)</li>
+<li><strong>xmax</strong> – maximum value (default +inf + 0i)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code> are inherited</p>
+<p><strong>Example</strong> C=CostRectangle(sz,xmin,xmax,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code></p>
+<dl class="method">
+<dt id="Cost.IndicatorFunctions.CostRectangle.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>~</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostRectangle.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.IndicatorFunctions.CostRectangle.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostRectangle.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costreals">
+<h3>CostReals<a class="headerlink" href="#costreals" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Cost.IndicatorFunctions.CostReals">
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostReals</code><span class="sig-paren">(</span><em>sz</em>, <em>xmin</em>, <em>xmax</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostReals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostRectangle</span></code></p>
+<p>CostReals: Reals Indicator function
+$$ C(x) = \left\lbrace \begin{array}[l]
+\text{0~if } \mathrm{xmin} \leq \mathrm{x-y} \leq \mathrm{xmax} \newline
++ \infty \text{ otherwise.} \end{array} \right. $$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>xmin</strong> – minimum value (default -inf)</li>
+<li><strong>xmax</strong> – maximum value (default +inf)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostRectangle</span></code> are inherited</p>
+<p><strong>Example</strong> C=CostReals(sz,xmin,xmax,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostRectangle</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="costnonneg">
+<h3>CostNonNeg<a class="headerlink" href="#costnonneg" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Cost.IndicatorFunctions.CostNonNeg">
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostNonNeg</code><span class="sig-paren">(</span><em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostNonNeg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostReals</span></code></p>
+<p>CostNonNeg : Non negativity indicator 
+$$ C(x) = \left\lbrace \begin{array}[l]
+\text{0~if } \mathrm{x-y} \geq 0 \newline
++ \infty \text{ otherwise.} \end{array} \right. $$</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostRectangle</span></code> are inherited</p>
+<p><strong>Example</strong> C=CostNonNeg(sz,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostRectangle</span></code>
+<code class="xref py py-class docutils literal"><span class="pre">CostReals</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="costcomplexring">
+<h3>CostComplexRing<a class="headerlink" href="#costcomplexring" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Cost.IndicatorFunctions.CostComplexRing">
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexRing</code><span class="sig-paren">(</span><em>inner</em>, <em>outer</em>, <em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexRing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostIndicator</span></code></p>
+<p>CostComplexRing: Implements
+the indicator function operator on the complex ring
+$$ C(x) = \left\lbrace \begin{array}[l]
+\text{0~if } \mathrm{inner}  \leq \vert x-y\vert \leq \mathrm{outer}  \newline
++ \infty \text{ otherwise.} \end{array} \right. $$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>inner</strong> – inner radius of the ring (default 0)</li>
+<li><strong>outer</strong> – outer radius of the ring (default 1)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code> are inherited</p>
+<p><strong>Example</strong> CostComplexRing(inner, outer, sz,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code></p>
+<dl class="method">
+<dt id="Cost.IndicatorFunctions.CostComplexRing.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexRing.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>apply the operator
+Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.IndicatorFunctions.CostComplexRing.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexRing.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costcomplexcircle">
+<h3>CostComplexCircle<a class="headerlink" href="#costcomplexcircle" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Cost.IndicatorFunctions.CostComplexCircle">
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexCircle</code><span class="sig-paren">(</span><em>radius</em>, <em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexCircle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostComplexRing</span></code></p>
+<p>CostComplexCircle: Implements the indicator on the complex circle of radius c
+$$ C(x) = \left\lbrace \begin{array}[l]
+\text{0~if } \vert \mathrm{x-y}\vert =c  \newline
++ \infty \text{ otherwise.} \end{array} \right. $$</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostComplexRing</span></code> are inherited</p>
+<p><strong>Example</strong> C=CostComplexCircle(radius,sz,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostComplexRing</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="costcomplexdisk">
+<h3>CostComplexDisk<a class="headerlink" href="#costcomplexdisk" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Cost.IndicatorFunctions.CostComplexDisk">
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexDisk</code><span class="sig-paren">(</span><em>radius</em>, <em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexDisk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostComplexRing</span></code></p>
+<p>CostComplexDisk: Implements the indocator function on the complex disk of radius c
+$$ C(x) = \left\lbrace \begin{array}[l]
+\text{0~if } \vert \mathrm{x-y}\vert \leq c  \newline
++ \infty \text{ otherwise.} \end{array} \right. $$</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostComplexRing</span></code> are inherited</p>
+<p><strong>Example</strong> C=CostComplexDisk(radius,sz,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostComplexRing</span></code></p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="opti.html" class="btn btn-neutral float-right" title="Optimization Algorithms (Opti)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="linop.html" class="btn btn-neutral" title="Linear Operators (LinOp)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Biomedical Imaging Group (EPFL).
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
