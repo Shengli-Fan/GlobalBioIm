@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; GlobalBioIm Library 1.1 documentation</title>
+  <title>Index &mdash; GlobalBioIm Library 1.0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
         <link rel="index" title="Index"
               href="#"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.1 documentation" href="index.html"/> 
+    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1
+                1.0
               </div>
             
           
@@ -91,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
@@ -100,6 +100,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opti.html">Optimization Algorithms (Opti)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="methodssummary.html">List of Methods</a></li>
@@ -176,10 +177,12 @@
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
@@ -202,6 +205,8 @@
       <ul>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.CostMultiplication.apply_">(Abstract.OperationsOnMaps.CostMultiplication method)</a>
 </li>
+        <li><a href="abstract.html#Abstract.OperationsOnMaps.CostPartialSummation.apply_">(Abstract.OperationsOnMaps.CostPartialSummation method)</a>
+</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpAdjoint.apply_">(Abstract.OperationsOnMaps.LinOpAdjoint method)</a>
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpComposition.apply_">(Abstract.OperationsOnMaps.LinOpComposition method)</a>
@@ -210,9 +215,13 @@
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.MapInversion.apply_">(Abstract.OperationsOnMaps.MapInversion method)</a>
 </li>
+        <li><a href="abstract.html#Abstract.OperationsOnMaps.MapMultiplication.apply_">(Abstract.OperationsOnMaps.MapMultiplication method)</a>
+</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.MapSummation.apply_">(Abstract.OperationsOnMaps.MapSummation method)</a>
 </li>
-        <li><a href="cost.html#Cost.CostComplexHyperBolic.apply_">(Cost.CostComplexHyperBolic method)</a>
+        <li><a href="cost.html#Cost.CostGoodRoughness.apply_">(Cost.CostGoodRoughness method)</a>
+</li>
+        <li><a href="cost.html#Cost.CostHyperBolic.apply_">(Cost.CostHyperBolic method)</a>
 </li>
         <li><a href="cost.html#Cost.CostKullLeib.apply_">(Cost.CostKullLeib method)</a>
 </li>
@@ -229,6 +238,8 @@
         <li><a href="cost.html#Cost.IndicatorFunctions.CostComplexRing.apply_">(Cost.IndicatorFunctions.CostComplexRing method)</a>
 </li>
         <li><a href="cost.html#Cost.IndicatorFunctions.CostRectangle.apply_">(Cost.IndicatorFunctions.CostRectangle method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpBroadcast.apply_">(LinOp.LinOpBroadcast method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpConv.apply_">(LinOp.LinOpConv method)</a>
 </li>
@@ -248,25 +259,35 @@
 </li>
         <li><a href="linop.html#LinOp.LinOpSDFT.apply_">(LinOp.LinOpSDFT method)</a>
 </li>
-        <li><a href="linop.html#LinOp.LinOpScaling.apply_">(LinOp.LinOpScaling method)</a>
-</li>
         <li><a href="linop.html#LinOp.LinOpShape.apply_">(LinOp.LinOpShape method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpSum.apply_">(LinOp.LinOpSum method)</a>
 </li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpDownsample.apply_">(LinOp.SelectorLinOps.LinOpDownsample method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelector.apply_">(LinOp.SelectorLinOps.LinOpSelector method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelectorPatch.apply_">(LinOp.SelectorLinOps.LinOpSelectorPatch method)</a>
+</li>
+        <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWInverse.apply_">(NonLinop.ElementWiseOp.OpEWInverse method)</a>
+</li>
+        <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWSquareRoot.apply_">(NonLinop.ElementWiseOp.OpEWSquareRoot method)</a>
+</li>
+        <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWSquaredMagnitude.apply_">(NonLinop.ElementWiseOp.OpEWSquaredMagnitude method)</a>
+</li>
       </ul></li>
       <li><a href="abstract.html#Abstract.LinOp.applyAdjoint">applyAdjoint() (Abstract.LinOp method)</a>
 </li>
-      <li><a href="abstract.html#Abstract.LinOp.applyAdjoint_">applyAdjoint_() (Abstract.LinOp method)</a>
+      <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpAdjoint.applyAdjoint_">applyAdjoint_() (Abstract.OperationsOnMaps.LinOpAdjoint method)</a>
 
       <ul>
-        <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpAdjoint.applyAdjoint_">(Abstract.OperationsOnMaps.LinOpAdjoint method)</a>
-</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpComposition.applyAdjoint_">(Abstract.OperationsOnMaps.LinOpComposition method)</a>
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpInversion.applyAdjoint_">(Abstract.OperationsOnMaps.LinOpInversion method)</a>
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpSummation.applyAdjoint_">(Abstract.OperationsOnMaps.LinOpSummation method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpBroadcast.applyAdjoint_">(LinOp.LinOpBroadcast method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpConv.applyAdjoint_">(LinOp.LinOpConv method)</a>
 </li>
@@ -286,20 +307,22 @@
 </li>
         <li><a href="linop.html#LinOp.LinOpSDFT.applyAdjoint_">(LinOp.LinOpSDFT method)</a>
 </li>
-        <li><a href="linop.html#LinOp.LinOpScaling.applyAdjoint_">(LinOp.LinOpScaling method)</a>
-</li>
         <li><a href="linop.html#LinOp.LinOpShape.applyAdjoint_">(LinOp.LinOpShape method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpSum.applyAdjoint_">(LinOp.LinOpSum method)</a>
 </li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpDownsample.applyAdjoint_">(LinOp.SelectorLinOps.LinOpDownsample method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelector.applyAdjoint_">(LinOp.SelectorLinOps.LinOpSelector method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelectorPatch.applyAdjoint_">(LinOp.SelectorLinOps.LinOpSelectorPatch method)</a>
+</li>
       </ul></li>
       <li><a href="abstract.html#Abstract.LinOp.applyAdjointInverse">applyAdjointInverse() (Abstract.LinOp method)</a>
 </li>
-      <li><a href="abstract.html#Abstract.LinOp.applyAdjointInverse_">applyAdjointInverse_() (Abstract.LinOp method)</a>
+      <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpAdjoint.applyAdjointInverse_">applyAdjointInverse_() (Abstract.OperationsOnMaps.LinOpAdjoint method)</a>
 
       <ul>
-        <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpAdjoint.applyAdjointInverse_">(Abstract.OperationsOnMaps.LinOpAdjoint method)</a>
-</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpComposition.applyAdjointInverse_">(Abstract.OperationsOnMaps.LinOpComposition method)</a>
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpInversion.applyAdjointInverse_">(Abstract.OperationsOnMaps.LinOpInversion method)</a>
@@ -312,15 +335,11 @@
 </li>
         <li><a href="linop.html#LinOp.LinOpSDFT.applyAdjointInverse_">(LinOp.LinOpSDFT method)</a>
 </li>
-        <li><a href="linop.html#LinOp.LinOpScaling.applyAdjointInverse_">(LinOp.LinOpScaling method)</a>
-</li>
         <li><a href="linop.html#LinOp.LinOpShape.applyAdjointInverse_">(LinOp.LinOpShape method)</a>
 </li>
       </ul></li>
       <li><a href="abstract.html#Abstract.Cost.applyGrad">applyGrad() (Abstract.Cost method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="abstract.html#Abstract.Cost.applyGrad_">applyGrad_() (Abstract.Cost method)</a>
 
       <ul>
@@ -328,9 +347,13 @@
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.CostMultiplication.applyGrad_">(Abstract.OperationsOnMaps.CostMultiplication method)</a>
 </li>
+        <li><a href="abstract.html#Abstract.OperationsOnMaps.CostPartialSummation.applyGrad_">(Abstract.OperationsOnMaps.CostPartialSummation method)</a>
+</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.CostSummation.applyGrad_">(Abstract.OperationsOnMaps.CostSummation method)</a>
 </li>
-        <li><a href="cost.html#Cost.CostComplexHyperBolic.applyGrad_">(Cost.CostComplexHyperBolic method)</a>
+        <li><a href="cost.html#Cost.CostGoodRoughness.applyGrad_">(Cost.CostGoodRoughness method)</a>
+</li>
+        <li><a href="cost.html#Cost.CostHyperBolic.applyGrad_">(Cost.CostHyperBolic method)</a>
 </li>
         <li><a href="cost.html#Cost.CostKullLeib.applyGrad_">(Cost.CostKullLeib method)</a>
 </li>
@@ -339,6 +362,8 @@
         <li><a href="cost.html#Cost.CostL2Composition.applyGrad_">(Cost.CostL2Composition method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="abstract.html#Abstract.LinOp.applyHHt">applyHHt() (Abstract.LinOp method)</a>
 </li>
       <li><a href="abstract.html#Abstract.LinOp.applyHHt_">applyHHt_() (Abstract.LinOp method)</a>
@@ -352,11 +377,17 @@
 </li>
         <li><a href="linop.html#LinOp.LinOpConv.applyHHt_">(LinOp.LinOpConv method)</a>
 </li>
+        <li><a href="linop.html#LinOp.LinOpDFT.applyHHt_">(LinOp.LinOpDFT method)</a>
+</li>
         <li><a href="linop.html#LinOp.LinOpDiag.applyHHt_">(LinOp.LinOpDiag method)</a>
 </li>
-        <li><a href="linop.html#LinOp.LinOpShape.applyHHt_">(LinOp.LinOpShape method)</a>
-</li>
         <li><a href="linop.html#LinOp.LinOpSum.applyHHt_">(LinOp.LinOpSum method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpDownsample.applyHHt_">(LinOp.SelectorLinOps.LinOpDownsample method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelector.applyHHt_">(LinOp.SelectorLinOps.LinOpSelector method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelectorPatch.applyHHt_">(LinOp.SelectorLinOps.LinOpSelectorPatch method)</a>
 </li>
       </ul></li>
       <li><a href="abstract.html#Abstract.LinOp.applyHtH">applyHtH() (Abstract.LinOp method)</a>
@@ -370,6 +401,8 @@
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpSummation.applyHtH_">(Abstract.OperationsOnMaps.LinOpSummation method)</a>
 </li>
+        <li><a href="linop.html#LinOp.LinOpBroadcast.applyHtH_">(LinOp.LinOpBroadcast method)</a>
+</li>
         <li><a href="linop.html#LinOp.LinOpConv.applyHtH_">(LinOp.LinOpConv method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpDFT.applyHtH_">(LinOp.LinOpDFT method)</a>
@@ -382,7 +415,11 @@
 </li>
         <li><a href="linop.html#LinOp.LinOpSDFT.applyHtH_">(LinOp.LinOpSDFT method)</a>
 </li>
-        <li><a href="linop.html#LinOp.LinOpShape.applyHtH_">(LinOp.LinOpShape method)</a>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpDownsample.applyHtH_">(LinOp.SelectorLinOps.LinOpDownsample method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelector.applyHtH_">(LinOp.SelectorLinOps.LinOpSelector method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelectorPatch.applyHtH_">(LinOp.SelectorLinOps.LinOpSelectorPatch method)</a>
 </li>
       </ul></li>
       <li><a href="abstract.html#Abstract.Map.applyInverse">applyInverse() (Abstract.Map method)</a>
@@ -398,15 +435,11 @@
 </li>
         <li><a href="linop.html#LinOp.LinOpConv.applyInverse_">(LinOp.LinOpConv method)</a>
 </li>
-        <li><a href="linop.html#LinOp.LinOpCpx.applyInverse_">(LinOp.LinOpCpx method)</a>
-</li>
         <li><a href="linop.html#LinOp.LinOpDFT.applyInverse_">(LinOp.LinOpDFT method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpDiag.applyInverse_">(LinOp.LinOpDiag method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpSDFT.applyInverse_">(LinOp.LinOpSDFT method)</a>
-</li>
-        <li><a href="linop.html#LinOp.LinOpScaling.applyInverse_">(LinOp.LinOpScaling method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpShape.applyInverse_">(LinOp.LinOpShape method)</a>
 </li>
@@ -422,7 +455,15 @@
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.MapComposition.applyJacobianT_">(Abstract.OperationsOnMaps.MapComposition method)</a>
 </li>
+        <li><a href="abstract.html#Abstract.OperationsOnMaps.MapMultiplication.applyJacobianT_">(Abstract.OperationsOnMaps.MapMultiplication method)</a>
+</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.MapSummation.applyJacobianT_">(Abstract.OperationsOnMaps.MapSummation method)</a>
+</li>
+        <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWInverse.applyJacobianT_">(NonLinop.ElementWiseOp.OpEWInverse method)</a>
+</li>
+        <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWSquareRoot.applyJacobianT_">(NonLinop.ElementWiseOp.OpEWSquareRoot method)</a>
+</li>
+        <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWSquaredMagnitude.applyJacobianT_">(NonLinop.ElementWiseOp.OpEWSquaredMagnitude method)</a>
 </li>
       </ul></li>
       <li><a href="abstract.html#Abstract.Cost.applyProx">applyProx() (Abstract.Cost method)</a>
@@ -445,6 +486,8 @@
         <li><a href="cost.html#Cost.CostMixNorm21.applyProx_">(Cost.CostMixNorm21 method)</a>
 </li>
         <li><a href="cost.html#Cost.CostMixNormSchatt1.applyProx_">(Cost.CostMixNormSchatt1 method)</a>
+</li>
+        <li><a href="cost.html#Cost.CostTV.applyProx_">(Cost.CostTV method)</a>
 </li>
         <li><a href="cost.html#Cost.IndicatorFunctions.CostComplexRing.applyProx_">(Cost.IndicatorFunctions.CostComplexRing method)</a>
 </li>
@@ -473,20 +516,22 @@
 </li>
       <li><a href="cost.html#Cost.IndicatorFunctions.CostComplexDisk">CostComplexDisk (class in Cost.IndicatorFunctions)</a>
 </li>
-      <li><a href="cost.html#Cost.CostComplexHyperBolic">CostComplexHyperBolic (class in Cost)</a>
-</li>
       <li><a href="cost.html#Cost.IndicatorFunctions.CostComplexRing">CostComplexRing (class in Cost.IndicatorFunctions)</a>
 </li>
       <li><a href="abstract.html#Abstract.OperationsOnMaps.CostComposition">CostComposition (class in Abstract.OperationsOnMaps)</a>
+</li>
+      <li><a href="cost.html#Cost.CostGoodRoughness">CostGoodRoughness (class in Cost)</a>
+</li>
+      <li><a href="cost.html#Cost.CostHyperBolic">CostHyperBolic (class in Cost)</a>
 </li>
       <li><a href="cost.html#Cost.IndicatorFunctions.CostIndicator">CostIndicator (class in Cost.IndicatorFunctions)</a>
 </li>
       <li><a href="cost.html#Cost.CostKullLeib">CostKullLeib (class in Cost)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cost.html#Cost.CostL1">CostL1 (class in Cost)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cost.html#Cost.CostL2">CostL2 (class in Cost)</a>
 </li>
       <li><a href="cost.html#Cost.CostL2Composition">CostL2Composition (class in Cost)</a>
@@ -499,14 +544,48 @@
 </li>
       <li><a href="cost.html#Cost.IndicatorFunctions.CostNonNeg">CostNonNeg (class in Cost.IndicatorFunctions)</a>
 </li>
+      <li><a href="abstract.html#Abstract.OperationsOnMaps.CostPartialSummation">CostPartialSummation (class in Abstract.OperationsOnMaps)</a>
+</li>
       <li><a href="cost.html#Cost.IndicatorFunctions.CostReals">CostReals (class in Cost.IndicatorFunctions)</a>
 </li>
       <li><a href="cost.html#Cost.IndicatorFunctions.CostRectangle">CostRectangle (class in Cost.IndicatorFunctions)</a>
 </li>
       <li><a href="abstract.html#Abstract.OperationsOnMaps.CostSummation">CostSummation (class in Abstract.OperationsOnMaps)</a>
 </li>
+      <li><a href="cost.html#Cost.CostTV">CostTV (class in Cost)</a>
+</li>
       <li><a href="abstract.html#Abstract.LinOp.ctranspose">ctranspose() (Abstract.LinOp method)</a>
 </li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="abstract.html#Abstract.Opti.doIteration">doIteration() (Abstract.Opti method)</a>
+
+      <ul>
+        <li><a href="opti.html#Opti.OptiADMM.doIteration">(Opti.OptiADMM method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiChambPock.doIteration">(Opti.OptiChambPock method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiConjGrad.doIteration">(Opti.OptiConjGrad method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiDouglasRachford.doIteration">(Opti.OptiDouglasRachford method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiFBS.doIteration">(Opti.OptiFBS method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiFGP.doIteration">(Opti.OptiFGP method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiGradDsct.doIteration">(Opti.OptiGradDsct method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiPrimalDualCondat.doIteration">(Opti.OptiPrimalDualCondat method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiRichLucy.doIteration">(Opti.OptiRichLucy method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiVMLMB.doIteration">(Opti.OptiVMLMB method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -523,6 +602,30 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="opti.html#Opti.OutputOpti.init">init() (Opti.OutputOpti method)</a>
 </li>
+      <li><a href="abstract.html#Abstract.Opti.initialize">initialize() (Abstract.Opti method)</a>
+
+      <ul>
+        <li><a href="opti.html#Opti.OptiADMM.initialize">(Opti.OptiADMM method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiChambPock.initialize">(Opti.OptiChambPock method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiConjGrad.initialize">(Opti.OptiConjGrad method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiDouglasRachford.initialize">(Opti.OptiDouglasRachford method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiFBS.initialize">(Opti.OptiFBS method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiFGP.initialize">(Opti.OptiFGP method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiGradDsct.initialize">(Opti.OptiGradDsct method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiPrimalDualCondat.initialize">(Opti.OptiPrimalDualCondat method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiRichLucy.initialize">(Opti.OptiRichLucy method)</a>
+</li>
+        <li><a href="opti.html#Opti.OptiVMLMB.initialize">(Opti.OptiVMLMB method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -539,6 +642,8 @@
 </li>
       <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpAdjoint">LinOpAdjoint (class in Abstract.OperationsOnMaps)</a>
 </li>
+      <li><a href="linop.html#LinOp.LinOpBroadcast">LinOpBroadcast (class in LinOp)</a>
+</li>
       <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpComposition">LinOpComposition (class in Abstract.OperationsOnMaps)</a>
 </li>
       <li><a href="linop.html#LinOp.LinOpConv">LinOpConv (class in LinOp)</a>
@@ -551,10 +656,10 @@
 </li>
       <li><a href="linop.html#LinOp.LinOpDico">LinOpDico (class in LinOp)</a>
 </li>
-      <li><a href="linop.html#LinOp.SelectorLinOps.LinOpDownsample">LinOpDownsample (class in LinOp.SelectorLinOps)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="linop.html#LinOp.SelectorLinOps.LinOpDownsample">LinOpDownsample (class in LinOp.SelectorLinOps)</a>
+</li>
       <li><a href="linop.html#LinOp.LinOpGrad">LinOpGrad (class in LinOp)</a>
 </li>
       <li><a href="linop.html#LinOp.LinOpHess">LinOpHess (class in LinOp)</a>
@@ -562,8 +667,6 @@
       <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpInversion">LinOpInversion (class in Abstract.OperationsOnMaps)</a>
 </li>
       <li><a href="linop.html#LinOp.LinOpMatrix">LinOpMatrix (class in LinOp)</a>
-</li>
-      <li><a href="linop.html#LinOp.LinOpScaling">LinOpScaling (class in LinOp)</a>
 </li>
       <li><a href="linop.html#LinOp.LinOpSDFT">LinOpSDFT (class in LinOp)</a>
 </li>
@@ -588,11 +691,17 @@
       <ul>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpAdjoint.makeAdjoint_">(Abstract.OperationsOnMaps.LinOpAdjoint method)</a>
 </li>
+        <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpComposition.makeAdjoint_">(Abstract.OperationsOnMaps.LinOpComposition method)</a>
+</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpSummation.makeAdjoint_">(Abstract.OperationsOnMaps.LinOpSummation method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpBroadcast.makeAdjoint_">(LinOp.LinOpBroadcast method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpConv.makeAdjoint_">(LinOp.LinOpConv method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpDiag.makeAdjoint_">(LinOp.LinOpDiag method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpSum.makeAdjoint_">(LinOp.LinOpSum method)</a>
 </li>
       </ul></li>
       <li><a href="abstract.html#Abstract.Map.makeComposition">makeComposition() (Abstract.Map method)</a>
@@ -616,15 +725,21 @@
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.MapInversion.makeComposition_">(Abstract.OperationsOnMaps.MapInversion method)</a>
 </li>
+        <li><a href="abstract.html#Abstract.OperationsOnMaps.MapMultiplication.makeComposition_">(Abstract.OperationsOnMaps.MapMultiplication method)</a>
+</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.MapSummation.makeComposition_">(Abstract.OperationsOnMaps.MapSummation method)</a>
 </li>
         <li><a href="cost.html#Cost.CostL2.makeComposition_">(Cost.CostL2 method)</a>
 </li>
         <li><a href="cost.html#Cost.CostL2Composition.makeComposition_">(Cost.CostL2Composition method)</a>
 </li>
+        <li><a href="cost.html#Cost.CostMixNorm21.makeComposition_">(Cost.CostMixNorm21 method)</a>
+</li>
         <li><a href="linop.html#LinOp.LinOpConv.makeComposition_">(LinOp.LinOpConv method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpDiag.makeComposition_">(LinOp.LinOpDiag method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpSum.makeComposition_">(LinOp.LinOpSum method)</a>
 </li>
       </ul></li>
       <li><a href="abstract.html#Abstract.LinOp.makeHHt">makeHHt() (Abstract.LinOp method)</a>
@@ -640,7 +755,15 @@
 </li>
         <li><a href="linop.html#LinOp.LinOpCpx.makeHHt_">(LinOp.LinOpCpx method)</a>
 </li>
+        <li><a href="linop.html#LinOp.LinOpDFT.makeHHt_">(LinOp.LinOpDFT method)</a>
+</li>
         <li><a href="linop.html#LinOp.LinOpDiag.makeHHt_">(LinOp.LinOpDiag method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpShape.makeHHt_">(LinOp.LinOpShape method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpSum.makeHHt_">(LinOp.LinOpSum method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelector.makeHHt_">(LinOp.SelectorLinOps.LinOpSelector method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -654,9 +777,13 @@
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpComposition.makeHtH_">(Abstract.OperationsOnMaps.LinOpComposition method)</a>
 </li>
+        <li><a href="linop.html#LinOp.LinOpBroadcast.makeHtH_">(LinOp.LinOpBroadcast method)</a>
+</li>
         <li><a href="linop.html#LinOp.LinOpConv.makeHtH_">(LinOp.LinOpConv method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpCpx.makeHtH_">(LinOp.LinOpCpx method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpDFT.makeHtH_">(LinOp.LinOpDFT method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpDiag.makeHtH_">(LinOp.LinOpDiag method)</a>
 </li>
@@ -664,12 +791,34 @@
 </li>
         <li><a href="linop.html#LinOp.LinOpHess.makeHtH_">(LinOp.LinOpHess method)</a>
 </li>
+        <li><a href="linop.html#LinOp.LinOpShape.makeHtH_">(LinOp.LinOpShape method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpDownsample.makeHtH_">(LinOp.SelectorLinOps.LinOpDownsample method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelector.makeHtH_">(LinOp.SelectorLinOps.LinOpSelector method)</a>
+</li>
+        <li><a href="linop.html#LinOp.SelectorLinOps.LinOpSelectorPatch.makeHtH_">(LinOp.SelectorLinOps.LinOpSelectorPatch method)</a>
+</li>
       </ul></li>
+      <li><a href="abstract.html#Abstract.LinOp.makeInversion_">makeInversion_() (Abstract.LinOp method)</a>
+
+      <ul>
+        <li><a href="linop.html#LinOp.LinOpConv.makeInversion_">(LinOp.LinOpConv method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpDFT.makeInversion_">(LinOp.LinOpDFT method)</a>
+</li>
+        <li><a href="linop.html#LinOp.LinOpDiag.makeInversion_">(LinOp.LinOpDiag method)</a>
+</li>
+      </ul></li>
+      <li><a href="abstract.html#Abstract.OperationsOnMaps.CostSummation.makePartialSummation">makePartialSummation() (Abstract.OperationsOnMaps.CostSummation method)</a>
+</li>
       <li><a href="abstract.html#Abstract.Map">Map (class in Abstract)</a>
 </li>
       <li><a href="abstract.html#Abstract.OperationsOnMaps.MapComposition">MapComposition (class in Abstract.OperationsOnMaps)</a>
 </li>
       <li><a href="abstract.html#Abstract.OperationsOnMaps.MapInversion">MapInversion (class in Abstract.OperationsOnMaps)</a>
+</li>
+      <li><a href="abstract.html#Abstract.OperationsOnMaps.MapMultiplication">MapMultiplication (class in Abstract.OperationsOnMaps)</a>
 </li>
       <li><a href="abstract.html#Abstract.OperationsOnMaps.MapSummation">MapSummation (class in Abstract.OperationsOnMaps)</a>
 </li>
@@ -678,8 +827,6 @@
       <li><a href="abstract.html#Abstract.Cost.minus_">minus_() (Abstract.Cost method)</a>
 
       <ul>
-        <li><a href="abstract.html#Abstract.LinOp.minus_">(Abstract.LinOp method)</a>
-</li>
         <li><a href="abstract.html#Abstract.Map.minus_">(Abstract.Map method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpConv.minus_">(LinOp.LinOpConv method)</a>
@@ -689,16 +836,12 @@
       </ul></li>
       <li><a href="abstract.html#Abstract.Map.mpower">mpower() (Abstract.Map method)</a>
 </li>
-      <li><a href="abstract.html#Abstract.LinOp.mpower_">mpower_() (Abstract.LinOp method)</a>
+      <li><a href="abstract.html#Abstract.Map.mpower_">mpower_() (Abstract.Map method)</a>
 
       <ul>
-        <li><a href="abstract.html#Abstract.Map.mpower_">(Abstract.Map method)</a>
-</li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpInversion.mpower_">(Abstract.OperationsOnMaps.LinOpInversion method)</a>
 </li>
         <li><a href="abstract.html#Abstract.OperationsOnMaps.MapInversion.mpower_">(Abstract.OperationsOnMaps.MapInversion method)</a>
-</li>
-        <li><a href="linop.html#LinOp.LinOpConv.mpower_">(LinOp.LinOpConv method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpDiag.mpower_">(LinOp.LinOpDiag method)</a>
 </li>
@@ -708,26 +851,48 @@
   </ul></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nonlinop.html#module-NonLinop">NonLinop (module)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nonlinop.html#module-NonLinop.ElementWiseOp">NonLinop.ElementWiseOp (module)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWInverse">OpEWInverse (class in NonLinop.ElementWiseOp)</a>
+</li>
+      <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWSquaredMagnitude">OpEWSquaredMagnitude (class in NonLinop.ElementWiseOp)</a>
+</li>
+      <li><a href="nonlinop.html#NonLinop.ElementWiseOp.OpEWSquareRoot">OpEWSquareRoot (class in NonLinop.ElementWiseOp)</a>
+</li>
       <li><a href="abstract.html#Abstract.Opti">Opti (class in Abstract)</a>
 
       <ul>
         <li><a href="opti.html#module-Opti">(module)</a>
 </li>
       </ul></li>
+      <li><a href="opti.html#module-Opti.TestCvg">Opti.TestCvg (module)</a>
+</li>
       <li><a href="opti.html#Opti.OptiADMM">OptiADMM (class in Opti)</a>
 </li>
       <li><a href="opti.html#Opti.OptiChambPock">OptiChambPock (class in Opti)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="opti.html#Opti.OptiConjGrad">OptiConjGrad (class in Opti)</a>
 </li>
       <li><a href="opti.html#Opti.OptiDouglasRachford">OptiDouglasRachford (class in Opti)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="opti.html#Opti.OptiFBS">OptiFBS (class in Opti)</a>
+</li>
+      <li><a href="opti.html#Opti.OptiFGP">OptiFGP (class in Opti)</a>
 </li>
       <li><a href="opti.html#Opti.OptiGradDsct">OptiGradDsct (class in Opti)</a>
 </li>
@@ -754,6 +919,8 @@
 </li>
         <li><a href="abstract.html#Abstract.Map.plus_">(Abstract.Map method)</a>
 </li>
+        <li><a href="abstract.html#Abstract.OperationsOnMaps.LinOpSummation.plus_">(Abstract.OperationsOnMaps.LinOpSummation method)</a>
+</li>
         <li><a href="linop.html#LinOp.LinOpConv.plus_">(LinOp.LinOpConv method)</a>
 </li>
         <li><a href="linop.html#LinOp.LinOpDiag.plus_">(LinOp.LinOpDiag method)</a>
@@ -766,27 +933,7 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="abstract.html#Abstract.Opti.run">run() (Abstract.Opti method)</a>
-
-      <ul>
-        <li><a href="opti.html#Opti.OptiADMM.run">(Opti.OptiADMM method)</a>
 </li>
-        <li><a href="opti.html#Opti.OptiChambPock.run">(Opti.OptiChambPock method)</a>
-</li>
-        <li><a href="opti.html#Opti.OptiConjGrad.run">(Opti.OptiConjGrad method)</a>
-</li>
-        <li><a href="opti.html#Opti.OptiDouglasRachford.run">(Opti.OptiDouglasRachford method)</a>
-</li>
-        <li><a href="opti.html#Opti.OptiFBS.run">(Opti.OptiFBS method)</a>
-</li>
-        <li><a href="opti.html#Opti.OptiGradDsct.run">(Opti.OptiGradDsct method)</a>
-</li>
-        <li><a href="opti.html#Opti.OptiPrimalDualCondat.run">(Opti.OptiPrimalDualCondat method)</a>
-</li>
-        <li><a href="opti.html#Opti.OptiRichLucy.run">(Opti.OptiRichLucy method)</a>
-</li>
-        <li><a href="opti.html#Opti.OptiVMLMB.run">(Opti.OptiVMLMB method)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -799,8 +946,16 @@
         <li><a href="abstract.html#Abstract.OperationsOnMaps.CostComposition.set_y">(Abstract.OperationsOnMaps.CostComposition method)</a>
 </li>
       </ul></li>
+      <li><a href="opti.html#Opti.OptiFGP.setBounds">setBounds() (Opti.OptiFGP method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="opti.html#Opti.OptiFGP.setLambda">setLambda() (Opti.OptiFGP method)</a>
+</li>
+      <li><a href="abstract.html#Abstract.OperationsOnMaps.CostPartialSummation.setLsub">setLsub() (Abstract.OperationsOnMaps.CostPartialSummation method)</a>
+</li>
+      <li><a href="cost.html#Cost.CostTV.setProxAlgo">setProxAlgo() (Cost.CostTV method)</a>
+</li>
       <li><a href="abstract.html#Abstract.Opti.starting_verb">starting_verb() (Abstract.Opti method)</a>
 </li>
   </ul></td>
@@ -809,10 +964,42 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="abstract.html#Abstract.Opti.test_convergence">test_convergence() (Abstract.Opti method)</a>
+      <li><a href="opti.html#Opti.TestCvg.TestCvg.testConvergence">testConvergence() (Opti.TestCvg.TestCvg method)</a>
+
+      <ul>
+        <li><a href="opti.html#Opti.TestCvg.TestCvgADMM.testConvergence">(Opti.TestCvg.TestCvgADMM method)</a>
+</li>
+        <li><a href="opti.html#Opti.TestCvg.TestCvgCombine.testConvergence">(Opti.TestCvg.TestCvgCombine method)</a>
+</li>
+        <li><a href="opti.html#Opti.TestCvg.TestCvgCostAbsolute.testConvergence">(Opti.TestCvg.TestCvgCostAbsolute method)</a>
+</li>
+        <li><a href="opti.html#Opti.TestCvg.TestCvgCostRelative.testConvergence">(Opti.TestCvg.TestCvgCostRelative method)</a>
+</li>
+        <li><a href="opti.html#Opti.TestCvg.TestCvgMaxSnr.testConvergence">(Opti.TestCvg.TestCvgMaxSnr method)</a>
+</li>
+        <li><a href="opti.html#Opti.TestCvg.TestCvgStepRelative.testConvergence">(Opti.TestCvg.TestCvgStepRelative method)</a>
+</li>
+      </ul></li>
+      <li><a href="opti.html#Opti.TestCvg.TestCvg">TestCvg (class in Opti.TestCvg)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="opti.html#Opti.TestCvg.TestCvgADMM">TestCvgADMM (class in Opti.TestCvg)</a>
+</li>
+      <li><a href="opti.html#Opti.TestCvg.TestCvgCombine">TestCvgCombine (class in Opti.TestCvg)</a>
+</li>
+      <li><a href="opti.html#Opti.TestCvg.TestCvgCostAbsolute">TestCvgCostAbsolute (class in Opti.TestCvg)</a>
+</li>
+      <li><a href="opti.html#Opti.TestCvg.TestCvgCostRelative">TestCvgCostRelative (class in Opti.TestCvg)</a>
+</li>
+      <li><a href="opti.html#Opti.TestCvg.TestCvgMaxSnr">TestCvgMaxSnr (class in Opti.TestCvg)</a>
+</li>
+      <li><a href="opti.html#Opti.TestCvg.TestCvgStepRelative">TestCvgStepRelative (class in Opti.TestCvg)</a>
+</li>
+      <li><a href="abstract.html#Abstract.Map.times">times() (Abstract.Map method)</a>
+</li>
+      <li><a href="abstract.html#Abstract.Map.times_">times_() (Abstract.Map method)</a>
+</li>
       <li><a href="abstract.html#Abstract.LinOp.transpose">transpose() (Abstract.LinOp method)</a>
 </li>
   </ul></td>
@@ -822,6 +1009,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="opti.html#Opti.OutputOpti.update">update() (Opti.OutputOpti method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="abstract.html#Abstract.Opti.updateParams">updateParams() (Abstract.Opti method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -862,7 +1053,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

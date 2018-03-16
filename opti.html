@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Optimization Algorithms (Opti) &mdash; GlobalBioIm Library 1.1 documentation</title>
+  <title>Optimization Algorithms (Opti) &mdash; GlobalBioIm Library 1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.1 documentation" href="index.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
         <link rel="next" title="List of Methods" href="methodssummary.html"/>
         <link rel="prev" title="Cost Functions (Cost)" href="cost.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1
+                1.0
               </div>
             
           
@@ -92,7 +92,7 @@
             
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
@@ -101,6 +101,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Optimization Algorithms (Opti)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#optiadmm">OptiADMM</a></li>
@@ -108,11 +109,22 @@
 <li class="toctree-l2"><a class="reference internal" href="#opticonjgrad">OptiConjGrad</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optidouglasrachford">OptiDouglasRachford</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optifbs">OptiFBS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optifgp">OptiFGP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optigraddsct">OptiGradDsct</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optiprimaldualcondat">OptiPrimalDualCondat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optirichlucy">OptiRichLucy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optivmlmb">OptiVMLMB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#outputopti">OutputOpti</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testcvg">TestCvg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#testcvg-default">TestCvg (Default)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testcvgcombine">TestCvgCombine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testcvgcostabsolute">TestCvgCostAbsolute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testcvgcostrelative">TestCvgCostRelative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testcvgsteprelative">TestCvgStepRelative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testcvgmaxsnr">TestCvgMaxSnr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testcvgadmm">TestCvgADMM</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="methodssummary.html">List of Methods</a></li>
@@ -193,7 +205,7 @@
 <h2>OptiADMM<a class="headerlink" href="#optiadmm" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiADMM">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiADMM</code><span class="sig-paren">(</span><em>F0</em>, <em>Fn</em>, <em>Hn</em>, <em>rho_n</em>, <em>solver</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiADMM" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiADMM</code><span class="sig-paren">(</span><em>F0</em>, <em>Fn</em>, <em>Hn</em>, <em>rho_n</em>, <em>solver</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiADMM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
 <p>Alternating Direction Method of Multipliers [1] algorithm which minimizes <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> of the form
 $$ C(\mathrm{x}) = F_0(\mathrm{x}) + \sum_{n=1}^N F_n(\mathrm{H_n x}) $$</p>
@@ -216,17 +228,17 @@ $$ C(\mathrm{x}) = F_0(\mathrm{x}) + \sum_{n=1}^N F_n(\mathrm{H_n x}) $$</p>
 </tbody>
 </table>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> are inherited.</p>
-<p><strong>Principle</strong> 
+<p><strong>Principle</strong>
 The algorithm aims at minimizing the Lagrangian formulation of the above problem:
 $$ \mathcal{L}(\mathrm{x,y_1…y_n,w_1…w_n}) = F_0(\mathrm{x}) + \sum_{n=1}^N \frac12\rho_n\Vert \mathrm{H_nx - y_n + w_n/\rho_n} \Vert^2 + F_n(\mathrm{y_n})$$
 using an alternating minimization scheme [1].</p>
-<p><strong>Note</strong> The minimization of \(\mathcal{L}\) over \(\mathrm{x}\), 
+<p><strong>Note</strong> The minimization of \(\mathcal{L}\) over \(\mathrm{x}\),
 $$ F_0(\mathrm{x}) + \sum_{n=1}^N \frac12\rho_n\Vert \mathrm{H_nx -z_n}\Vert^2, \quad \mathrm{z_n= y_n - w_n/\rho_n} $$
 is performed  either using the conjugate-gradient <code class="xref py py-class docutils literal"><span class="pre">OptiConjGrad</span></code> algoriothm, a direct inversion or the given solver</p>
 <blockquote>
 <div><ul class="simple">
 <li>If \(F_0\) is empty or is a <code class="xref py py-class docutils literal"><span class="pre">CostL2</span></code>, then if the <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code> \(\sum_{n=0}^N \mathrm{H_n}^*\mathrm{H_n}\)
-is not invertible the <code class="xref py py-class docutils literal"><span class="pre">OptiConjGrad</span></code> is used by default if no more efficient solver is provided. 
+is not invertible the <code class="xref py py-class docutils literal"><span class="pre">OptiConjGrad</span></code> is used by default if no more efficient solver is provided.
 Here \(\mathrm{H_0}\) is the <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code> associated to \(F_0\).</li>
 <li>Otherwithe the solver is required.</li>
 </ul>
@@ -234,12 +246,18 @@ Here \(\mathrm{H_0}\) is the <code class="xref py py-class docutils literal"><sp
 <p><strong>Reference</strong></p>
 <p>[1] Boyd, Stephen, et al. “Distributed optimization and statistical learning via the alternating direction
 method of multipliers.” Foundations and Trends in Machine Learning, 2011.</p>
-<p><strong>Example</strong> ADMM=OptiADMM(F0,Fn,Hn,rho_n,solver,OutOp)</p>
+<p><strong>Example</strong> ADMM=OptiADMM(F0,Fn,Hn,rho_n,solver)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">OptiConjGrad</span></code> <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiADMM.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiADMM.run" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OptiADMM.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiADMM.doIteration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiADMM.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiADMM.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -249,7 +267,7 @@ method of multipliers.” Foundations and Trends in Machine Learning, 2011.</p>
 <h2>OptiChambPock<a class="headerlink" href="#optichambpock" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiChambPock">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiChambPock</code><span class="sig-paren">(</span><em>F</em>, <em>H</em>, <em>G</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiChambPock" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiChambPock</code><span class="sig-paren">(</span><em>F</em>, <em>H</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiChambPock" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
 <p>Chambolle-Pock optimization algorithm [1] which minimizes <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> of the form
 $$ C(\mathrm{x}) = F(\mathrm{Hx}) + G(\mathrm{x}) $$</p>
@@ -298,12 +316,18 @@ $$ \sigma \times \tau \times \Vert \mathrm{H} \Vert^2 \leq 1 $$</li>
 <p><strong>Reference</strong>:</p>
 <p>[1] Chambolle, Antonin, and Thomas Pock. “A first-order primal-dual algorithm for convex problems with 
 applications to imaging.” Journal of Mathematical Imaging and Vision 40.1, pp 120-145 (2011).</p>
-<p><strong>Example</strong> CP=OptiChambPock(F,H,G,OutOp)</p>
+<p><strong>Example</strong> CP=OptiChambPock(F,H,G)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiChambPock.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiChambPock.run" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OptiChambPock.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiChambPock.doIteration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiChambPock.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiChambPock.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -313,7 +337,7 @@ applications to imaging.” Journal of Mathematical Imaging and Vision 40.1, pp 
 <h2>OptiConjGrad<a class="headerlink" href="#opticonjgrad" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiConjGrad">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiConjGrad</code><span class="sig-paren">(</span><em>A</em>, <em>b</em>, <em>W</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiConjGrad" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiConjGrad</code><span class="sig-paren">(</span><em>A</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiConjGrad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
 <p>Conjugate gradient optimization algorithm which solves the linear
 system \(\mathrm{Ax=b}\) by minimizing
@@ -325,7 +349,6 @@ $$ C(\mathrm{x})= \frac12 \mathrm{x^TAx - b^Tx} $$</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>A</strong> – symmetric definite positive <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></li>
 <li><strong>b</strong> – right-hand term</li>
-<li><strong>W</strong> – <code class="xref py py-class docutils literal"><span class="pre">LinOpDiag</span></code>, if set then the algorithm solves \(\mathrm{A^TWAx=b}\)</li>
 </ul>
 </td>
 </tr>
@@ -334,13 +357,19 @@ $$ C(\mathrm{x})= \frac12 \mathrm{x^TAx - b^Tx} $$</p>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> are inherited.</p>
 <p><strong>Note</strong>: In this algorithm the parameter cost is not fixed to the above functional
 but to the squared resildual \( 0.5\Vert \mathrm{Ax - b}\Vert^2 \)</p>
-<p><strong>Example</strong> CG=OptiConjGrad(A,b,W,OutOp)</p>
+<p><strong>Example</strong> CG=OptiConjGrad(A,b,OutOp)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiConjGrad.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiConjGrad.run" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OptiConjGrad.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiConjGrad.doIteration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For a detailled
 algorithm scheme see <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_gradient_method#The_resulting_algorithm">here</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiConjGrad.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiConjGrad.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -350,7 +379,7 @@ algorithm scheme see <a class="reference external" href="https://en.wikipedia.or
 <h2>OptiDouglasRachford<a class="headerlink" href="#optidouglasrachford" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiDouglasRachford">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiDouglasRachford</code><span class="sig-paren">(</span><em>F1</em>, <em>F2</em>, <em>L</em>, <em>gamma</em>, <em>lambda</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiDouglasRachford" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiDouglasRachford</code><span class="sig-paren">(</span><em>F1</em>, <em>F2</em>, <em>L</em>, <em>gamma</em>, <em>lambda</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiDouglasRachford" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
 <p>Douglas Rachford splitting optimization algorithm which minimizes
 <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> of the form
@@ -371,11 +400,17 @@ $$ C(\mathrm{x}) = F_1(\mathrm{x}) + F_2(\mathrm{L x}) $$</p>
 </tbody>
 </table>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> are inherited.</p>
-<p><strong>Example</strong> DR=OptiDouglasRachford(F1, F2, L, gamma, lambda, OutOp)</p>
+<p><strong>Example</strong> DR=OptiDouglasRachford(F1, F2, L, gamma, lambda)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiDouglasRachford.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiDouglasRachford.run" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OptiDouglasRachford.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiDouglasRachford.doIteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiDouglasRachford.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiDouglasRachford.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
 </dd></dl>
 
@@ -386,7 +421,7 @@ $$ C(\mathrm{x}) = F_1(\mathrm{x}) + F_2(\mathrm{L x}) $$</p>
 <h2>OptiFBS<a class="headerlink" href="#optifbs" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiFBS">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiFBS</code><span class="sig-paren">(</span><em>F</em>, <em>G</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFBS" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiFBS</code><span class="sig-paren">(</span><em>F</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFBS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
 <p>Forward-Backward Splitting optimization algorithm [1] which minimizes <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> of the form
 $$ C(\mathrm{x}) = F(\mathrm{x}) + G(\mathrm{x}) $$</p>
@@ -407,22 +442,85 @@ $$ C(\mathrm{x}) = F(\mathrm{x}) + G(\mathrm{x}) $$</p>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> are inherited.</p>
 <p><strong>Note</strong>: When the functional are convex and \(F\) has a Lipschitz continuous gradient, convergence is
 ensured by taking \(\gamma \in (0,2/L] \) where \(L\) is the Lipschitz constant of \(\nabla F\) (see [1]).
-When FISTA is used [3], \(\gamma \) should be in \((0,1/L]\). For nonconvex functions [2] take \(\gamma \in (0,1/L]\).    
+When FISTA is used [3], \(\gamma \) should be in \((0,1/L]\). For nonconvex functions [2] take \(\gamma \in (0,1/L]\).
 If \(L\) is known (i.e. F.lip different from -1), parameter \(\gamma\) is automatically set to \(1/L\).</p>
 <p><strong>References</strong>:</p>
 <p>[1] P.L. Combettes and V.R. Wajs, “Signal recovery by proximal forward-backward splitting”, SIAM Journal on
 Multiscale Modeling &amp; Simulation, vol 4, no. 4, pp 1168-1200, (2005).</p>
-<p>[2] Hedy Attouch, Jerome Bolte and Benar Fux Svaiter “Convergence of descent methods for semi-algebraic and 
-tame problems: proximal algorithms, forward-backward splitting, and regularized gaussiedel methods.” 
+<p>[2] Hedy Attouch, Jerome Bolte and Benar Fux Svaiter “Convergence of descent methods for semi-algebraic and
+tame problems: proximal algorithms, forward-backward splitting, and regularized gaussiedel methods.”
 Mathematical Programming, 137 (2013).</p>
 <p>[3] Amir Beck and Marc Teboulle, “A Fast Iterative Shrinkage-Thresholding Algorithm for Linear inverse Problems”,
 SIAM Journal on Imaging Science, vol 2, no. 1, pp 182-202 (2009)</p>
-<p><strong>Example</strong> FBS=OptiFBS(F,G,OutOp)</p>
+<p><strong>Example</strong> FBS=OptiFBS(F,G)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiFBS.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFBS.run" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OptiFBS.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFBS.doIteration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1-3].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiFBS.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFBS.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="optifgp">
+<h2>OptiFGP<a class="headerlink" href="#optifgp" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Opti.OptiFGP">
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiFGP</code><span class="sig-paren">(</span><em>F0</em>, <em>TV</em>, <em>bounds</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFGP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
+<p>Fast Gradient Proximal which computes the TV proximity operator which
+minimizes <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> of the form
+$$ C(\mathrm{x}) = \frac12\|\mathrm{x} - \mathrm{y}\|^2_2 + \lambda \|\mathrm{x} \|_{TV} $$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>F_0</strong> – <code class="xref py py-class docutils literal"><span class="pre">CostL2</span></code> object</li>
+<li><strong>TV</strong> – <code class="xref py py-class docutils literal"><span class="pre">CostTV</span></code></li>
+<li><strong>bounds</strong> – bounds for set constraint</li>
+<li><strong>gam</strong> – descent step (default 1/8)</li>
+<li><strong>lambda</strong> – regularization parameter for TV</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> are inherited.</p>
+<p><strong>References</strong></p>
+<p>[1] Beck, A., and Teboulle, M. (2009). Fast gradient-based algorithms for constrained total variation image denoising 
+and deblurring problems. IEEE Transactions on Image Processing, 18(11), 2419-2434.</p>
+<p><strong>Example</strong> FGP=OptiFGP(F0,TV,bounds)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
+<dl class="method">
+<dt id="Opti.OptiFGP.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFGP.doIteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiFGP.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFGP.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiFGP.setBounds">
+<code class="descname">setBounds</code><span class="sig-paren">(</span><em>this</em>, <em>new_b</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFGP.setBounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set constraints bounds</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiFGP.setLambda">
+<code class="descname">setLambda</code><span class="sig-paren">(</span><em>this</em>, <em>new_l</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiFGP.setLambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the regularization parameter lambda</p>
 </dd></dl>
 
 </dd></dl>
@@ -432,7 +530,7 @@ SIAM Journal on Imaging Science, vol 2, no. 1, pp 182-202 (2009)</p>
 <h2>OptiGradDsct<a class="headerlink" href="#optigraddsct" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiGradDsct">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiGradDsct</code><span class="sig-paren">(</span><em>F</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiGradDsct" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiGradDsct</code><span class="sig-paren">(</span><em>F</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiGradDsct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
 <p>Gradient Descent optimization algorithm to minimize a differentiable <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> \(C(\mathrm{x})\)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -454,13 +552,19 @@ The optimal choice is \(\gamma = 1/L \) (see [1]). If \(L\) is known (i.e. F.lip
 parameter \(\gamma\) is automatically set to \(1/L\).</p>
 <p><strong>Reference</strong></p>
 <p>[1] Nesterov, Yurii. “Introductory lectures on convex programming.” Lecture Notes (1998): 119-120.</p>
-<p><strong>Example</strong> GD=OptiGradDsct(F,OutOp)</p>
+<p><strong>Example</strong> GD=OptiGradDsct(F)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiGradDsct.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiGradDsct.run" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OptiGradDsct.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiGradDsct.doIteration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.  Performs:
 $$ \mathrm{x}^{k+1} = \mathrm{x}^k - \gamma \nabla C(\mathrm{x}^k) $$</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiGradDsct.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiGradDsct.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -470,7 +574,7 @@ $$ \mathrm{x}^{k+1} = \mathrm{x}^k - \gamma \nabla C(\mathrm{x}^k) $$</p>
 <h2>OptiPrimalDualCondat<a class="headerlink" href="#optiprimaldualcondat" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiPrimalDualCondat">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiPrimalDualCondat</code><span class="sig-paren">(</span><em>F0</em>, <em>G</em>, <em>Fn</em>, <em>Hn</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiPrimalDualCondat" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiPrimalDualCondat</code><span class="sig-paren">(</span><em>F0</em>, <em>G</em>, <em>Fn</em>, <em>Hn</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiPrimalDualCondat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
 <p>Primal-Dual algorithm proposed by L. Condat in [1] which minimizes <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> of the form
 $$ C(\mathrm{x})= F_0(\mathrm{x}) + G(\mathrm{x}) + \sum_n F_n(\mathrm{H_nx}) $$</p>
@@ -507,14 +611,21 @@ to ensure convergence (see [1, Theorem 5.1]).</li>
 </ul>
 </div></blockquote>
 <p><strong>Reference</strong></p>
-<p>[1] Laurent Condat, “A Primal-Dual Splitting Method for Convex Optimization Involving Lipchitzian, Proximable and Linear 
+<p>[1] Laurent Condat, “A Primal-Dual Splitting Method for Convex Optimization Involving Lipchitzian, Proximable and Linear
 Composite Terms”, Journal of Optimization Theory and Applications, vol 158, no 2, pp 460-479 (2013).</p>
-<p><strong>Example</strong> A=OptiPrimalDualCondat(F0,G,Fn,Hn,OutOp)</p>
+<p><strong>Example</strong> A=OptiPrimalDualCondat(F0,G,Fn,Hn)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiPrimalDualCondat.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiPrimalDualCondat.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1].</p>
+<dt id="Opti.OptiPrimalDualCondat.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiPrimalDualCondat.doIteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1].
+Update xtilde</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiPrimalDualCondat.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiPrimalDualCondat.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -524,7 +635,7 @@ Composite Terms”, Journal of Optimization Theory and Applications, vol 158, no
 <h2>OptiRichLucy<a class="headerlink" href="#optirichlucy" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiRichLucy">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiRichLucy</code><span class="sig-paren">(</span><em>F</em>, <em>TV</em>, <em>lamb</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiRichLucy" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiRichLucy</code><span class="sig-paren">(</span><em>F</em>, <em>TV</em>, <em>lamb</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiRichLucy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
 <p>Richardson-Lucy algorithm [1,2] which minimizes the KullbackLeibler
 divergence <code class="xref py py-class docutils literal"><span class="pre">CostKullLeib</span></code> (with TV regularization [3]).
@@ -554,13 +665,19 @@ anymore if \(\lambda \) is too large. Hence, \(\lambda \) needs to be carefully 
 <p>[2] Richardson, William Hadley. “Bayesian-based iterative method of image restoration.” JOSA (1972): 55-59.</p>
 <p>[3] N. Dey et al. “Richardson-Lucy Algorithm With Total Variation Regularization for 3D Confocal Microscope 
 Deconvolution.” Microscopy research and technique (2006).</p>
-<p><strong>Example</strong> RL=OptiRichLucy(F,TV,lamb,OutOp)</p>
+<p><strong>Example</strong> RL=OptiRichLucy(F,TV,lamb)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>,
 <code class="xref py py-class docutils literal"><span class="pre">CostKullLeib</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiRichLucy.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiRichLucy.run" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OptiRichLucy.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiRichLucy.doIteration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1-3].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiRichLucy.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiRichLucy.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -570,9 +687,10 @@ Deconvolution.” Microscopy research and technique (2006).</p>
 <h2>OptiVMLMB<a class="headerlink" href="#optivmlmb" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OptiVMLMB">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiVMLMB</code><span class="sig-paren">(</span><em>C</em>, <em>xmin</em>, <em>xmax</em>, <em>OutOp</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiVMLMB" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OptiVMLMB</code><span class="sig-paren">(</span><em>C</em>, <em>xmin</em>, <em>xmax</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiVMLMB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Opti</span></code></p>
-<p>Variable Metric Limited Memory Bounded (VMLMB) [1] algorithm that
+<p>Variable Metric Limited Memory Bounded (VMLMB) from OptimPackLegacy [1].
+This algorithm
 minimizes a cost \(C(\mathrm{x})\) which is differentiable with bound
 constraints and/or preconditioning.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -589,20 +707,26 @@ constraints and/or preconditioning.</p>
 </tbody>
 </table>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> are inherited.</p>
-<p><strong>Note</strong> 
+<p><strong>Note</strong>
 This Optimizer has many other variables that are set by
 default to reasonable values. See the function m_vmlmb_first.m in the
 MatlabOptimPack folder for more details.</p>
 <p><strong>Reference</strong></p>
 <p>[1] Eric Thiebaut, “Optimization issues in blind deconvolution algorithms”,
-SPIE Conf. Astronomical Data Analysis II, 4847, 174-183 (2002). See
-<a class="reference external" href="https://github.com/emmt/OptimPackLegacy">here</a>.</p>
-<p><strong>Example</strong> VMLMB=OptiVMLMB(C,xmin,xmax,OutOp)</p>
+SPIE Conf. Astronomical Data Analysis II, 4847, 174-183 (2002).
+See OptimPackLegacy <a class="reference external" href="https://github.com/emmt/OptimPackLegacy">repository</a>.</p>
+<p><strong>Example</strong> VMLMB=OptiVMLMB(C,xmin,xmax)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">OptiConjGrad</span></code> <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
-<dt id="Opti.OptiVMLMB.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiVMLMB.run" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OptiVMLMB.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiVMLMB.doIteration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OptiVMLMB.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>this</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiVMLMB.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -612,7 +736,7 @@ SPIE Conf. Astronomical Data Analysis II, 4847, 174-183 (2002). See
 <h2>OutputOpti<a class="headerlink" href="#outputopti" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Opti.OutputOpti">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OutputOpti</code><span class="sig-paren">(</span><em>computecost</em>, <em>xtrue</em>, <em>iterVerb</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OutputOpti</code><span class="sig-paren">(</span><em>computecost</em>, <em>xtrue</em>, <em>iterVerb</em>, <em>costIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">handle</span></code></p>
 <p>OutputOpti class for algorithms displayings and savings</p>
 <p>At each <code class="xref py py-attr docutils literal"><span class="pre">ItUpOut</span></code> iterations of an optimization algorithm (see <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> generic class),
@@ -644,6 +768,7 @@ defined computations, e.g.,</p>
 <li><strong>evolcost</strong> – array to save the evolution of the cost function</li>
 <li><strong>evolsnr</strong> – array to save the evolution of the SNR</li>
 <li><strong>iterVerb</strong> – message will be displayed every iterVerb iterations (must be a multiple of the <code class="xref py py-attr docutils literal"><span class="pre">ItUpOut</span></code> parameter of classes <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>)</li>
+<li><strong>costIndex</strong> – select a specific cost function among a sum in the case where the optimized cost function is a sum of cost functions</li>
 </ul>
 </td>
 </tr>
@@ -668,6 +793,245 @@ to all the properties of <code class="xref py py-class docutils literal"><span c
 
 </dd></dl>
 
+<span class="target" id="module-Opti.TestCvg"></span></div>
+<div class="section" id="testcvg">
+<h2>TestCvg<a class="headerlink" href="#testcvg" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="testcvg-default">
+<h3>TestCvg (Default)<a class="headerlink" href="#testcvg-default" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.TestCvg.TestCvg">
+<em class="property">class </em><code class="descclassname">Opti.TestCvg.</code><code class="descname">TestCvg</code><a class="headerlink" href="#Opti.TestCvg.TestCvg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">handle</span></code></p>
+<p>TestCvg class  monitor convergence criterion during optimization</p>
+<p>At each iterations of an optimization algorithm (see <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> generic class),
+the <code class="xref py py-meth docutils literal"><span class="pre">testConvergence()</span></code> method of an <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code> object will be executed in order to acheive user
+defined computations</p>
+<p><strong>Example</strong> CvOpti=TestCvg()</p>
+<p><strong>Important</strong> The <code class="xref py py-meth docutils literal"><span class="pre">testConvergence()</span></code> method should have an unique imput that is the <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> object in order to
+be generic for all Optimization routines. Hence the update method has access (in reading mode)
+to all the properties of <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> objects.</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code></p>
+<dl class="method">
+<dt id="Opti.TestCvg.TestCvg.testConvergence">
+<code class="descname">testConvergence</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvg.testConvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation: do nothing (algorithm will break with
+max iterations).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="testcvgcombine">
+<h3>TestCvgCombine<a class="headerlink" href="#testcvgcombine" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.TestCvg.TestCvgCombine">
+<em class="property">class </em><code class="descclassname">Opti.TestCvg.</code><code class="descname">TestCvgCombine</code><span class="sig-paren">(</span><em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgCombine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Opti.TestCvg.TestCvg</span></code></p>
+<p>TestCvgCombine:
+Combine several <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code> objects.</p>
+<p><strong>Examples</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>CvOpti = TestCvgCombine(A, B ,C); 
+where A B and C are of TestCvg class</li>
+<li>CvOpti = TestCvgCombine(‘CostRelative’,0.000001, ‘CostAbsolute’,10);  
+for simple test</li>
+</ul>
+</div></blockquote>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code></p>
+<dl class="method">
+<dt id="Opti.TestCvg.TestCvgCombine.testConvergence">
+<code class="descname">testConvergence</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgCombine.testConvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="testcvgcostabsolute">
+<h3>TestCvgCostAbsolute<a class="headerlink" href="#testcvgcostabsolute" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.TestCvg.TestCvgCostAbsolute">
+<em class="property">class </em><code class="descclassname">Opti.TestCvg.</code><code class="descname">TestCvgCostAbsolute</code><span class="sig-paren">(</span><em>costAbsoluteTol</em>, <em>costIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgCostAbsolute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Opti.TestCvg.TestCvg</span></code></p>
+<p>TestCvgCostAbsolute stops the optimization when the cost function is below the value COSTABSOLUTETOL</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>costAbsoluteTol</strong> – absolute tolerance on cost function</li>
+<li><strong>costIndex</strong> – select a specific cost function among a sum in the case where the optimized cost function is a sum of cost functions</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> CvOpti=TestCvgCostAbsolute(costAbsoluteTol, costIndex )</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code></p>
+<dl class="method">
+<dt id="Opti.TestCvg.TestCvgCostAbsolute.testConvergence">
+<code class="descname">testConvergence</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgCostAbsolute.testConvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests algorithm convergence</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if \( C(\mathrm{x^k}) &lt; \mathrm{costAbsoluteTol}\)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="testcvgcostrelative">
+<h3>TestCvgCostRelative<a class="headerlink" href="#testcvgcostrelative" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.TestCvg.TestCvgCostRelative">
+<em class="property">class </em><code class="descclassname">Opti.TestCvg.</code><code class="descname">TestCvgCostRelative</code><span class="sig-paren">(</span><em>costRelativeTol</em>, <em>costIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgCostRelative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Opti.TestCvg.TestCvg</span></code></p>
+<p>TestCvgCostRelative stops the optimization when the cost function is below the value COSTRELATIVETOL</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>costRelativeTol</strong> – relative tolerance on cost function</li>
+<li><strong>costIndex</strong> – select a specific cost function among a sum in the case where the optimized cost function is a sum of cost functions</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> CvOpti=TestCvgCostRelative(costRelativeTol, costIndex )</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code></p>
+<dl class="method">
+<dt id="Opti.TestCvg.TestCvgCostRelative.testConvergence">
+<code class="descname">testConvergence</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgCostRelative.testConvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests algorithm convergence from the relative difference between two successive value of the cost function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if</td>
+</tr>
+</tbody>
+</table>
+<p>$$ \frac{\left| C(\mathrm{x}^{k}) - C(\mathrm{x}^{k-1})\right|}{\left|C(\mathrm{x}^{k-1})\right|} &lt; \mathrm{costRelativeTol}$$</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="testcvgsteprelative">
+<h3>TestCvgStepRelative<a class="headerlink" href="#testcvgsteprelative" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.TestCvg.TestCvgStepRelative">
+<em class="property">class </em><code class="descclassname">Opti.TestCvg.</code><code class="descname">TestCvgStepRelative</code><span class="sig-paren">(</span><em>stepRelativeTol</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgStepRelative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Opti.TestCvg.TestCvg</span></code></p>
+<p>TestCvgStepRelative stops the optimization when the step  is below
+the value STEPRELATIVETOL</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stepRelativeTol</strong> – relative tolerance on step</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> CvOpti=TestCvgStepRelative(stepRelativeTol )</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code></p>
+<dl class="method">
+<dt id="Opti.TestCvg.TestCvgStepRelative.testConvergence">
+<code class="descname">testConvergence</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgStepRelative.testConvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests algorithm convergence from the relative difference between two successive value of the step function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if</td>
+</tr>
+</tbody>
+</table>
+<p>$$ \frac{\| \mathrm{x}^{k} - \mathrm{x}^{k-1}\|}{\|\mathrm{x}^{k-1}\|} &lt; \text{stepRelativeTol}.$$</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="testcvgmaxsnr">
+<h3>TestCvgMaxSnr<a class="headerlink" href="#testcvgmaxsnr" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.TestCvg.TestCvgMaxSnr">
+<em class="property">class </em><code class="descclassname">Opti.TestCvg.</code><code class="descname">TestCvgMaxSnr</code><span class="sig-paren">(</span><em>ref</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgMaxSnr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Opti.TestCvg.TestCvg</span></code></p>
+<p>TestCvgMaxSnr stops the optimization when the SNR is decreasing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ref</strong> – reference signal</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> CvOpti=TestCvgMaxSnr(ref )</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code></p>
+<dl class="method">
+<dt id="Opti.TestCvg.TestCvgMaxSnr.testConvergence">
+<code class="descname">testConvergence</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgMaxSnr.testConvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests algorithm convergence using the SNR with</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean true if</td>
+</tr>
+</tbody>
+</table>
+<p>$$ 20\log\left(\frac{\| \mathrm{ref}\|}{\| \mathrm{x}^{k} - \mathrm{ref}\|}\right)&lt; 20\log\left(\frac{\| \mathrm{ref}\|}{\| \mathrm{x}^{k-1} - \mathrm{ref}\|}\right)$$</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="testcvgadmm">
+<h3>TestCvgADMM<a class="headerlink" href="#testcvgadmm" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.TestCvg.TestCvgADMM">
+<em class="property">class </em><code class="descclassname">Opti.TestCvg.</code><code class="descname">TestCvgADMM</code><span class="sig-paren">(</span><em>eps_abs</em>, <em>eps_rel</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgADMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Opti.TestCvg.TestCvg</span></code></p>
+<p>Test convergence by monitoring the primal and dual rediduals in ADMM
+as described in [1].</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>eps_abs</strong> – absolute tolerance (default 0, see [1])</li>
+<li><strong>eps_rel</strong> – relative tolerance (default 1e-3 see [1])</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reference</strong></p>
+<p>[1] Boyd, Stephen, et al. “Distributed optimization and statistical learning via the alternating direction
+method of multipliers.” Foundations and Trends in Machine Learning, 2011.</p>
+<p><strong>Warning</strong> the termination criterion described in [1] requires to
+apply the adjoint of Hn at every iteration, which may be costly</p>
+<p><strong>Example</strong> CvOpti=TestCvgADMM(eps_abs,eps_rel)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code></p>
+<dl class="method">
+<dt id="Opti.TestCvg.TestCvgADMM.testConvergence">
+<code class="descname">testConvergence</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.TestCvg.TestCvgADMM.testConvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">TestCvg</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 </div>
 
@@ -715,7 +1079,7 @@ to all the properties of <code class="xref py py-class docutils literal"><span c
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

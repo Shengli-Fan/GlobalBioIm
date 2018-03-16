@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>List of Methods &mdash; GlobalBioIm Library 1.1 documentation</title>
+  <title>List of Methods &mdash; GlobalBioIm Library 1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.1 documentation" href="index.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
         <link rel="next" title="List of Properties" href="propertiessummary.html"/>
         <link rel="prev" title="Optimization Algorithms (Opti)" href="opti.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1
+                1.0
               </div>
             
           
@@ -92,7 +92,7 @@
             
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
@@ -101,6 +101,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opti.html">Optimization Algorithms (Opti)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">List of Methods</a><ul>
@@ -224,28 +225,35 @@ adjoint and the gradient. Instead, the methods <code class="xref py py-meth docu
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>makeComposition()</td>
+<tr class="row-odd"><td>makeInversion()</td>
+<td>makeInversion_()</td>
+<td><div class="first last line-block">
+<div class="line">Build the inverse <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>makeComposition()</td>
 <td>makeComposition_()</td>
 <td><div class="first last line-block">
 <div class="line">Compose a <code class="xref py py-class docutils literal"><span class="pre">Map</span></code> with another <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>.</div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td>plus()</td>
+<tr class="row-odd"><td>plus()</td>
 <td>plus_()</td>
 <td><div class="first last line-block">
 <div class="line">overload + operator for Maps.</div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>minus()</td>
+<tr class="row-even"><td>minus()</td>
 <td>minus_()</td>
 <td><div class="first last line-block">
 <div class="line">overload - operator for Maps.</div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td>mpower()</td>
+<tr class="row-odd"><td>mpower()</td>
 <td>mpower_()</td>
 <td><div class="first last line-block">
 <div class="line">overload ^ operator for Maps (i.e. M.^-1 build the</div>
@@ -253,12 +261,19 @@ adjoint and the gradient. Instead, the methods <code class="xref py py-meth docu
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>mtimes()</td>
+<tr class="row-even"><td>mtimes()</td>
 <td>N/A</td>
 <td><div class="first last line-block">
 <div class="line">overload * operator for Maps. If the input x is</div>
 <div class="line">an array, calls apply(x). If it is a <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
 <div class="line">object, calls makeComposition(x).</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>times()</td>
+<td>times_()</td>
+<td><div class="first last line-block">
+<div class="line">overload .* operator for Maps.</div>
 </div>
 </td>
 </tr>
@@ -350,38 +365,52 @@ adjoint and the gradient. Instead, the methods <code class="xref py py-meth docu
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>makeComposition()</td>
+<tr class="row-odd"><td>makeInversion()</td>
+<td>makeInversion_()</td>
+<td><div class="first last line-block">
+<div class="line">Inherited from <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>makeComposition()</td>
 <td>makeComposition_()</td>
 <td><div class="first last line-block">
 <div class="line">Inherited from <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td>plus()</td>
+<tr class="row-odd"><td>plus()</td>
 <td>plus_()</td>
 <td><div class="first last line-block">
 <div class="line">Inherited from <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>minus()</td>
+<tr class="row-even"><td>minus()</td>
 <td>minus_()</td>
 <td><div class="first last line-block">
 <div class="line">Inherited from <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td>mpower()</td>
+<tr class="row-odd"><td>mpower()</td>
 <td>mpower_()</td>
 <td><div class="first last line-block">
 <div class="line">Inherited from <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>mtimes()</td>
+<tr class="row-even"><td>mtimes()</td>
 <td>N/A</td>
 <td><div class="first last line-block">
 <div class="line">Inherited from <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>times()</td>
+<td>times_()</td>
+<td><div class="first last line-block">
+<div class="line">overload .* operator for Maps.</div>
 </div>
 </td>
 </tr>
@@ -481,7 +510,14 @@ adjoint and the gradient. Instead, the methods <code class="xref py py-meth docu
 </div>
 </td>
 </tr>
-<tr class="row-even"><td>size()</td>
+<tr class="row-even"><td>times()</td>
+<td>times_()</td>
+<td><div class="first last line-block">
+<div class="line">overload .* operator for Maps.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>size()</td>
 <td>N/A</td>
 <td><div class="first last line-block">
 <div class="line">Inherited from <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></div>
@@ -510,19 +546,37 @@ adjoint and the gradient. Instead, the methods <code class="xref py py-meth docu
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>test_convergence()</td>
+<tr class="row-odd"><td>initialize()</td>
+<td><div class="first last line-block">
+<div class="line">Initialize the algorithm (e.g. auxilliary var).</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>doIteration()</td>
+<td><div class="first last line-block">
+<div class="line">Performs one iteration of the algorithm.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>updateParams()</td>
+<td><div class="first last line-block">
+<div class="line">Update algorithm parameters (e.g. descent step).</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>test_convergence()</td>
 <td><div class="first last line-block">
 <div class="line">Test if the algorithm has converged.</div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td>starting_verb()</td>
+<tr class="row-odd"><td>starting_verb()</td>
 <td><div class="first last line-block">
 <div class="line">Display starting message.</div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>ending_verb()</td>
+<tr class="row-even"><td>ending_verb()</td>
 <td><div class="first last line-block">
 <div class="line">Display ending message.</div>
 </div>
@@ -577,7 +631,7 @@ adjoint and the gradient. Instead, the methods <code class="xref py py-meth docu
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

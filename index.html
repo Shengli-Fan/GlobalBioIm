@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to the GlobalBioIm Library webpage! &mdash; GlobalBioIm Library 1.1 documentation</title>
+  <title>Welcome to the GlobalBioIm Library webpage! &mdash; GlobalBioIm Library 1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.1 documentation" href="#"/>
+    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="#"/>
         <link rel="next" title="Important Informations" href="infos.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1
+                1.0
               </div>
             
           
@@ -91,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
@@ -100,6 +100,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opti.html">Optimization Algorithms (Opti)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="methodssummary.html">List of Methods</a></li>
@@ -176,15 +177,15 @@
 <h1>Welcome to the GlobalBioIm Library webpage!<a class="headerlink" href="#welcome-to-the-globalbioim-library-webpage" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="objectives">
 <h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
-<p>When being confronted with a new imaging problem, the common experience is that one has to reimplement
+<p>When being confronted with a new inverse problem, the common experience is that one has to reimplement
 (if not reinvent) the wheel (=forward model + optimization algorithm), which is very time consuming and
-also acts as a deterrent for engaging in new developments. This Matlab library aims at simplifying this
+also acts as a deterrent for engaging in new developments. This Matlab library GlobalBioIm aims at simplifying this
 process by decomposing the workflow onto smaller modules, including many reusable ones since several aspects
 such as regularization and the injection of prior knowledge are rather generic. It also capitalizes on the
 strong commonalities between the various image formation models that can be exploited to obtain fast,
 streamlined implementations.</p>
 <div class="figure align-center">
-<a class="reference external image-reference" href="https://c4science.ch/diffusion/2843/"><img alt="_images/button.png" src="_images/button.png" style="width: 238.4px; height: 63.2px;" /></a>
+<a class="reference external image-reference" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm"><img alt="_images/button.png" src="_images/button.png" style="width: 238.4px; height: 63.2px;" /></a>
 </div>
 <p>This page contains detailled documentation of each function/class of the Library. The documentation is generated
 automatically from comments within M-files. It thus constitues the most up-to date documentation of the Library.</p>
@@ -193,9 +194,10 @@ automatically from comments within M-files. It thus constitues the most up-to da
 <h2>News<a class="headerlink" href="#news" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><strong>November 2017</strong>: New release of the library (v 0.2) !
-<em>New tools, more flexibility, and improved composition rules</em>. <a class="reference external" href="https://c4science.ch/diffusion/2843/">Try it</a>!</li>
-<li><strong>June 2017</strong>: First public release of the library (v 0.1) <a class="reference external" href="https://c4science.ch/diffusion/2843/">get it</a>!</li>
+<li><strong>March 2018</strong>: New release of the library (<a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">v 1.0</a>)</li>
+<li><strong>November 2017</strong>: New release of the library (<a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm/releases/tag/v0.2">v 0.2</a>)
+<em>New tools, more flexibility, and improved composition rules</em>.</li>
+<li><strong>June 2017</strong>: First public release of the library (v 0.1)</li>
 </ul>
 </div></blockquote>
 </div>
@@ -215,7 +217,7 @@ Proceedings of the OSA Imaging and Applied Optics Congress on Computational Opti
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
@@ -226,6 +228,7 @@ Proceedings of the OSA Imaging and Applied Optics Congress on Computational Opti
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opti.html">Optimization Algorithms (Opti)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="methodssummary.html">List of Methods</a></li>
@@ -283,7 +286,7 @@ Proceedings of the OSA Imaging and Applied Optics Congress on Computational Opti
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

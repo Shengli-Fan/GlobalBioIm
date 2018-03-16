@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cost Functions (Cost) &mdash; GlobalBioIm Library 1.1 documentation</title>
+  <title>Cost Functions (Cost) &mdash; GlobalBioIm Library 1.0 documentation</title>
   
 
   
@@ -35,9 +35,9 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.1 documentation" href="index.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
         <link rel="next" title="Optimization Algorithms (Opti)" href="opti.html"/>
-        <link rel="prev" title="Linear Operators (LinOp)" href="linop.html"/> 
+        <link rel="prev" title="Non-Linear Operators" href="nonlinop.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1
+                1.0
               </div>
             
           
@@ -92,7 +92,7 @@
             
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
@@ -101,14 +101,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cost Functions (Cost)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#costcomplexhyperbolic">CostComplexHyperBolic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costgoodroughness">CostGoodRoughness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costhyperbolic">CostHyperBolic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costkullleib">CostKullLeib</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costl1">CostL1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costl2">CostL2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costl2composition">CostL2Composition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costmixnorm21">CostMixNorm21</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costmixnormschatt1">CostMixNormSchatt1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costtv">CostTV</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-Cost.IndicatorFunctions">IndicatorFunctions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#costindicator">CostIndicator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#costrectangle">CostRectangle</a></li>
@@ -196,13 +199,57 @@
 <h1>Cost Functions (Cost)<a class="headerlink" href="#cost-functions-cost" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div>This section contains cost functions classes which all derive from the abstract class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</div></blockquote>
-<span class="target" id="module-Cost"></span><div class="section" id="costcomplexhyperbolic">
-<h2>CostComplexHyperBolic<a class="headerlink" href="#costcomplexhyperbolic" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-Cost"></span><div class="section" id="costgoodroughness">
+<h2>CostGoodRoughness<a class="headerlink" href="#costgoodroughness" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="Cost.CostComplexHyperBolic">
-<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostComplexHyperBolic</code><span class="sig-paren">(</span><em>sz</em>, <em>epsilon</em>, <em>index</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostComplexHyperBolic" title="Permalink to this definition">¶</a></dt>
+<dt id="Cost.CostGoodRoughness">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostGoodRoughness</code><span class="sig-paren">(</span><em>G</em>, <em>bet</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostGoodRoughness" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
-<p>CostComplexHyperBolic: Hyperbolic cost function
+<p>CostGoodRoughness: see [1]
+$$C(\mathrm{x}) := \sum_k \frac{\vert (\nabla \mathrm{x})_{.,k} \vert^2}{\sqrt{\vert \mathrm{x} \vert^2 + \beta}} $$
+with \( \vert (\nabla \mathrm{x})_{.,k} \vert^2 \)  the gradient
+magnitude at pixel k.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>G</strong> – :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>LinOpGrad`object</li>
+<li><strong>bet</strong> – smoothing parameter (default 1e-1)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
+<p><strong>Example</strong> GR=CostGoodRoughness(G)</p>
+<p><strong>Reference</strong>
+[1] Verveer, P. J., Gemkow, M. J., &amp; Jovin, T. M. (1999). A comparison of image restoration
+approaches applied to three?dimensional confocal and wide?field fluorescence microscopy. 
+Journal of microscopy, 193(1), 50-61.</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOpGrad</span></code></p>
+<dl class="method">
+<dt id="Cost.CostGoodRoughness.applyGrad_">
+<code class="descname">applyGrad_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostGoodRoughness.applyGrad_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostGoodRoughness.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostGoodRoughness.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costhyperbolic">
+<h2>CostHyperBolic<a class="headerlink" href="#costhyperbolic" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostHyperBolic">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostHyperBolic</code><span class="sig-paren">(</span><em>sz</em>, <em>epsilon</em>, <em>index</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostHyperBolic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostHyperBolic: Hyperbolic cost function
 $$C(\mathrm{x}) := \sum_{k=1}^K \sqrt{\sum_{l=1}^L (\mathrm{x}-y)_{k,l}^2 + \varepsilon^2}$$</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -218,17 +265,17 @@ $$C(\mathrm{x}) := \sum_{k=1}^K \sqrt{\sum_{l=1}^L (\mathrm{x}-y)_{k,l}^2 + \var
 </tbody>
 </table>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
-<p><strong>Example</strong> C=CostComplexHyperBolic(sz,epsilon,index,y)</p>
+<p><strong>Example</strong> C=CostHyperBolic(sz,epsilon,index,y)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
 <dl class="method">
-<dt id="Cost.CostComplexHyperBolic.applyGrad_">
-<code class="descname">applyGrad_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostComplexHyperBolic.applyGrad_" title="Permalink to this definition">¶</a></dt>
+<dt id="Cost.CostHyperBolic.applyGrad_">
+<code class="descname">applyGrad_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostHyperBolic.applyGrad_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Cost.CostComplexHyperBolic.apply_">
-<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostComplexHyperBolic.apply_" title="Permalink to this definition">¶</a></dt>
+<dt id="Cost.CostHyperBolic.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostHyperBolic.apply_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
 </dd></dl>
 
@@ -284,12 +331,15 @@ $$ D_{KL}(\mathrm{z}_n) := \left\lbrace \begin{array}[ll]
 <h2>CostL1<a class="headerlink" href="#costl1" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Cost.CostL1">
-<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostL1</code><span class="sig-paren">(</span><em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL1" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostL1</code><span class="sig-paren">(</span><em>sz</em>, <em>y</em>, <em>nonneg</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
 <p>CostL1: L1 norm cost function
 $$C(x) := \|\mathrm{x} - \mathrm{y}\|_1 $$</p>
+<p>If nonneg is set to true, it add positivity constraint on x:
+$$C(x) := \|\mathrm{x} - \mathrm{y}\|_1 + i(\mathrm{x} - \mathrm{y}) $$
+where i() is the indicator function of $\mathbb{R}^{+}</p>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
-<p><strong>Example</strong> C=CostL1(sz,y)</p>
+<p><strong>Example</strong> C=CostL1(sz,y,nonneg)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
 <dl class="method">
 <dt id="Cost.CostL1.applyProx_">
@@ -430,7 +480,7 @@ $$ C(\mathrm{x}) = \frac12 \langle \mathrm{W H^{\star}Hx,x} \rangle - \langle \m
 <dt id="Cost.CostL2Composition.makeComposition_">
 <code class="descname">makeComposition_</code><span class="sig-paren">(</span><em>this</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostL2Composition.makeComposition_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>. Instantiates a new
-<code class="xref py py-class docutils literal"><span class="pre">CostL2Compoisition</span></code> with the updated composed
+<code class="xref py py-class docutils literal"><span class="pre">CostL2Composition</span></code> with the updated composed
 <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>.</p>
 </dd></dl>
 
@@ -476,6 +526,13 @@ where the division is component-wise.</p>
 <dt id="Cost.CostMixNorm21.apply_">
 <code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNorm21.apply_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostMixNorm21.makeComposition_">
+<code class="descname">makeComposition_</code><span class="sig-paren">(</span><em>this</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNorm21.makeComposition_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>. Instantiates a
+<code class="xref py py-class docutils literal"><span class="pre">CostL2Composition</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -532,6 +589,49 @@ for linear inverse problems. IEEE transactions on image processing, 22(5), 1873-
 <dt id="Cost.CostMixNormSchatt1.apply_">
 <code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostMixNormSchatt1.apply_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="costtv">
+<h2>CostTV<a class="headerlink" href="#costtv" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostTV">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostTV</code><span class="sig-paren">(</span><em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostTV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.OperationsOnMaps.CostComposition</span></code></p>
+<p>CostTV : Composition of a <code class="xref py py-class docutils literal"><span class="pre">CostTV</span></code> with a
+<code class="xref py py-class docutils literal"><span class="pre">Map</span></code>
+$$C(\mathrm{x}) := \sum_{k=1}^K \sqrt{\sum_{l=1}^L (\mathrm{H_2 x}-y)_{k,l}^2}= \sum_{k=1}^K \Vert (\mathrm{H_2 x-y})_{k\cdot} \Vert_2$$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>H1</strong> – <code class="xref py py-class docutils literal"><span class="pre">CostMixNorm21</span></code> object</li>
+<li><strong>H2</strong> – <code class="xref py py-class docutils literal"><span class="pre">LinOpGrad</span></code> object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All attributes of parent <code class="xref py py-class docutils literal"><span class="pre">CostComposition</span></code> are inherited.</p>
+<p><strong>Example</strong> C=CostTV(sz)</p>
+<p><strong>Example</strong> C=CostTV(H1,H2); with H1=CostMixNorm21(sz,index,y); and H2=LinOpGrad(sz);</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostL2</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostComposition</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dl class="method">
+<dt id="Cost.CostTV.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostTV.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">CostComposition</span></code>.
+Computed using the iterative <code class="xref py py-class docutils literal"><span class="pre">OptiFGP</span></code> 
+If y==0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostTV.setProxAlgo">
+<code class="descname">setProxAlgo</code><span class="sig-paren">(</span><em>this</em>, <em>bounds</em>, <em>maxiter</em>, <em>xtol</em>, <em>Outop</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostTV.setProxAlgo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of <code class="xref py py-class docutils literal"><span class="pre">OptiFGP</span></code> used to compute the proximity
+operator.</p>
 </dd></dl>
 
 </dd></dl>
@@ -732,7 +832,7 @@ $$ C(x) = \left\lbrace \begin{array}[l]
         <a href="opti.html" class="btn btn-neutral float-right" title="Optimization Algorithms (Opti)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="linop.html" class="btn btn-neutral" title="Linear Operators (LinOp)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="nonlinop.html" class="btn btn-neutral" title="Non-Linear Operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -763,7 +863,7 @@ $$ C(x) = \left\lbrace \begin{array}[l]
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

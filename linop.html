@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Linear Operators (LinOp) &mdash; GlobalBioIm Library 1.1 documentation</title>
+  <title>Linear Operators (LinOp) &mdash; GlobalBioIm Library 1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.1 documentation" href="index.html"/>
-        <link rel="next" title="Cost Functions (Cost)" href="cost.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Non-Linear Operators" href="nonlinop.html"/>
         <link rel="prev" title="Abstract classes" href="abstract.html"/> 
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1
+                1.0
               </div>
             
           
@@ -92,7 +92,7 @@
             
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
@@ -101,6 +101,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Linear Operators (LinOp)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linopbroadcast">LinOpBroadcast</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linopconv">LinOpConv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linopcpx">LinOpCpx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linopdft">LinOpDFT</a></li>
@@ -109,7 +110,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#linopgrad">LinOpGrad</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linophess">LinOpHess</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linopmatrix">LinOpMatrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#linopscaling">LinOpScaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linopsdft">LinOpSDFT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linopshape">LinOpShape</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linopsum">LinOpSum</a></li>
@@ -121,6 +121,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opti.html">Optimization Algorithms (Opti)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="methodssummary.html">List of Methods</a></li>
@@ -196,11 +197,71 @@
   <div class="section" id="linear-operators-linop">
 <h1>Linear Operators (LinOp)<a class="headerlink" href="#linear-operators-linop" title="Permalink to this headline">¶</a></h1>
 <p>This section contains linear operator classes which all derive from the abstract class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
-<span class="target" id="module-LinOp"></span><div class="section" id="linopconv">
+<span class="target" id="module-LinOp"></span><div class="section" id="linopbroadcast">
+<h2>LinOpBroadcast<a class="headerlink" href="#linopbroadcast" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="LinOp.LinOpBroadcast">
+<em class="property">class </em><code class="descclassname">LinOp.</code><code class="descname">LinOpBroadcast</code><span class="sig-paren">(</span><em>sz</em>, <em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpBroadcast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.LinOp</span></code></p>
+<p>LinOpSum: Broacasting linear operator which broadcast the elements of a variable along
+given directions.
+$$\mathrm{H} : \mathrm{x} \mapsto \mathrm{y_{k,l}} = \mathrm{x}_{k} $$</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sz</strong> – size of \(\mathrm{y}\) the output of the <code class="xref py py-class docutils literal"><span class="pre">LinOpBroadcast</span></code>.</li>
+<li><strong>index</strong> – dimensions along which vector will be broadcasted</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>LinOpBroadcast is the Adjoint of the LinOpSum operator</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code> are inherited.</p>
+<p><strong>Example</strong> S=LinOpSum(sz,index)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></p>
+<dl class="method">
+<dt id="LinOp.LinOpBroadcast.applyAdjoint_">
+<code class="descname">applyAdjoint_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpBroadcast.applyAdjoint_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.
+$$\mathrm{H} : \mathrm{x} \mapsto \mathrm{y_k} = \sum_l \mathrm{x}_{k,l} $$</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpBroadcast.applyHtH_">
+<code class="descname">applyHtH_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpBroadcast.applyHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpBroadcast.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpBroadcast.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.
+$$\mathrm{H}^* : \mathrm{x} \mapsto \mathrm{y_{k,l}} =  \mathrm{x}_{k} \; \forall l$$</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpBroadcast.makeAdjoint_">
+<code class="descname">makeAdjoint_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpBroadcast.makeAdjoint_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpBroadcast.makeHtH_">
+<code class="descname">makeHtH_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpBroadcast.makeHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="linopconv">
 <h2>LinOpConv<a class="headerlink" href="#linopconv" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="LinOp.LinOpConv">
-<em class="property">class </em><code class="descclassname">LinOp.</code><code class="descname">LinOpConv</code><span class="sig-paren">(</span><em>mtf</em>, <em>isReal</em>, <em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpConv" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">LinOp.</code><code class="descname">LinOpConv</code><span class="sig-paren">(</span><em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpConv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.LinOp</span></code></p>
 <p>LinOpConv: Convolution operator</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -210,7 +271,11 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>mtf</strong> – Fourier transform of Point Spread Function</li>
 <li><strong>isReal</strong> – if true (default) the result of the convolution should be real</li>
-<li><strong>index</strong> – dimensions along which the convolution is performed (the MTF must have a comformable size)</li>
+<li><strong>index</strong> – dimensions along which the convolution is performed (the MTF must have a comformable size</li>
+<li><strong>'MTF'</strong> – keyword to provide MTF (default)</li>
+<li><strong>'PSF'</strong> – keyword to provide PSF instead of MTF</li>
+<li><strong>'Centered'</strong> – is the PSF is centered in the image</li>
+<li><strong>'Pad'</strong> – is the PSF must be padded to the size SZ with the value padvalue (default 0)</li>
 </ul>
 </td>
 </tr>
@@ -218,6 +283,11 @@
 </table>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code> are inherited.</p>
 <p><strong>Example</strong> H=LinOpConv(mtf,isReal,index)</p>
+<p><strong>Example</strong> H=LinOpConv(‘MTF’,mtf,isReal,index)</p>
+<p><strong>Example</strong> H=LinOpConv(‘PSF’, psf,isReal,index)</p>
+<p><strong>Example</strong> H=LinOpConv(‘PSF’, psf,isReal,index,’Centered’)</p>
+<p><strong>Example</strong> H=LinOpConv(‘PSF’, psf,isReal,index,’Pad’,sz,padvalue)</p>
+<p><strong>Example</strong> H=LinOpConv(‘PSF’, psf,isReal,index,’Centered’,’Pad’,sz,padvalue)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></p>
 <dl class="method">
 <dt id="LinOp.LinOpConv.applyAdjointInverse_">
@@ -280,15 +350,15 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="LinOp.LinOpConv.minus_">
-<code class="descname">minus_</code><span class="sig-paren">(</span><em>this</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpConv.minus_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+<dt id="LinOp.LinOpConv.makeInversion_">
+<code class="descname">makeInversion_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpConv.makeInversion_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
 </dd></dl>
 
 <dl class="method">
-<dt id="LinOp.LinOpConv.mpower_">
-<code class="descname">mpower_</code><span class="sig-paren">(</span><em>this</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpConv.mpower_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+<dt id="LinOp.LinOpConv.minus_">
+<code class="descname">minus_</code><span class="sig-paren">(</span><em>this</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpConv.minus_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -327,12 +397,6 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="LinOp.LinOpCpx.applyInverse_">
-<code class="descname">applyInverse_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpCpx.applyInverse_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="LinOp.LinOpCpx.apply_">
 <code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpCpx.apply_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
@@ -357,7 +421,7 @@
 <h2>LinOpDFT<a class="headerlink" href="#linopdft" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="LinOp.LinOpDFT">
-<em class="property">class </em><code class="descclassname">LinOp.</code><code class="descname">LinOpDFT</code><span class="sig-paren">(</span><em>sz</em>, <em>pad</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDFT" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">LinOp.</code><code class="descname">LinOpDFT</code><span class="sig-paren">(</span><em>sz</em>, <em>unitary</em>, <em>pad</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDFT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.LinOp</span></code></p>
 <p>LinOpDFT : Discrete Fourier operator</p>
 <p>Compute the dicrete fourier transfom padded by PAD (optionnal) such
@@ -368,15 +432,15 @@ that (equivalent to y = fftn(x,pad))</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>sz</strong> – sizein of the operator.</li>
-<li><strong>pad</strong> – padding size (see the doc of fftn function).</li>
 <li><strong>unitary</strong> – boolean true when normalized DFT (default false)</li>
+<li><strong>pad</strong> – padding size (see the doc of fftn function).</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code> are inherited.</p>
-<p><strong>Example</strong> DFT=LinOpDFT(sz, pad)</p>
+<p><strong>Example</strong> DFT=LinOpDFT(sz,unitary, pad)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOpSDFT</span></code>, fftn,
 ifftn</p>
 <dl class="method">
@@ -388,6 +452,12 @@ ifftn</p>
 <dl class="method">
 <dt id="LinOp.LinOpDFT.applyAdjoint_">
 <code class="descname">applyAdjoint_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDFT.applyAdjoint_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpDFT.applyHHt_">
+<code class="descname">applyHHt_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDFT.applyHHt_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
 </dd></dl>
 
@@ -409,6 +479,24 @@ ifftn</p>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="LinOp.LinOpDFT.makeHHt_">
+<code class="descname">makeHHt_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDFT.makeHHt_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpDFT.makeHtH_">
+<code class="descname">makeHtH_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDFT.makeHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpDFT.makeInversion_">
+<code class="descname">makeInversion_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDFT.makeInversion_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -427,14 +515,16 @@ vector containing the diagonal elements of \(\mathrm{H}\).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diag</strong> – elements of the diagonal (vector)</li>
-<li><strong>sz</strong> – size (if the given diag is scalar) to build a scaled identity operator.</li>
+<li><strong>diag</strong> – elements of the diagonal (Non-singleton dimensions of diag and sz must be consistent)</li>
+<li><strong>sz</strong> – size (if not the size of the given diag) to build a scaled identity operator.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code> are inherited.</p>
+<p>If size(diag)=[2 1] and sz=[2 2], then LinOpDiag multiplies each
+column of a given 2x2 matrix with the diag vector (see bsxfun).</p>
 <p><strong>Example</strong> D=LinOpDiag(sz,diag)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></p>
 <dl class="method">
@@ -494,6 +584,12 @@ vector containing the diagonal elements of \(\mathrm{H}\).</p>
 <dl class="method">
 <dt id="LinOp.LinOpDiag.makeHtH_">
 <code class="descname">makeHtH_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDiag.makeHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpDiag.makeInversion_">
+<code class="descname">makeInversion_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpDiag.makeInversion_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
 </dd></dl>
 
@@ -707,56 +803,6 @@ apply() method is:</p>
 </dd></dl>
 
 </div>
-<div class="section" id="linopscaling">
-<h2>LinOpScaling<a class="headerlink" href="#linopscaling" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="LinOp.LinOpScaling">
-<em class="property">class </em><code class="descclassname">LinOp.</code><code class="descname">LinOpScaling</code><span class="sig-paren">(</span><em>scale</em>, <em>sz</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpScaling" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.LinOp</span></code></p>
-<p>LinOpScaling : LinOp scaling operator</p>
-<p>Scale the input by a scalar factor</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>sz</strong> – input size of the operator</li>
-<li><strong>scale</strong> – scaling parameter</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code> are inherited.</p>
-<p><strong>Example</strong> S= LinOpScaling(scale)</p>
-<p>See also <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Map</span></code></p>
-<dl class="method">
-<dt id="LinOp.LinOpScaling.applyAdjointInverse_">
-<code class="descname">applyAdjointInverse_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpScaling.applyAdjointInverse_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="LinOp.LinOpScaling.applyAdjoint_">
-<code class="descname">applyAdjoint_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpScaling.applyAdjoint_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="LinOp.LinOpScaling.applyInverse_">
-<code class="descname">applyInverse_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpScaling.applyInverse_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="LinOp.LinOpScaling.apply_">
-<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpScaling.apply_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="linopsdft">
 <h2>LinOpSDFT<a class="headerlink" href="#linopsdft" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -770,7 +816,7 @@ apply() method is:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>sz</strong> – sizein of the operator.</li>
-<li><strong>index</strong> – index along wich dimension are computed the FFT</li>
+<li><strong>index</strong> – index along wich dimension are computed the FFT (default all)</li>
 </ul>
 </td>
 </tr>
@@ -848,18 +894,6 @@ ifftn, Sfft, iSfft</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="LinOp.LinOpShape.applyHHt_">
-<code class="descname">applyHHt_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpShape.applyHHt_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="LinOp.LinOpShape.applyHtH_">
-<code class="descname">applyHtH_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpShape.applyHtH_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="LinOp.LinOpShape.applyInverse_">
 <code class="descname">applyInverse_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpShape.applyInverse_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
@@ -868,6 +902,18 @@ ifftn, Sfft, iSfft</p>
 <dl class="method">
 <dt id="LinOp.LinOpShape.apply_">
 <code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpShape.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpShape.makeHHt_">
+<code class="descname">makeHHt_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpShape.makeHHt_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpShape.makeHtH_">
+<code class="descname">makeHtH_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpShape.makeHtH_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
 </dd></dl>
 
@@ -917,6 +963,24 @@ $$\mathrm{H}^* : \mathrm{x} \mapsto \mathrm{y_{k,l}} =  \mathrm{x}_{k} \; \foral
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="LinOp.LinOpSum.makeAdjoint_">
+<code class="descname">makeAdjoint_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpSum.makeAdjoint_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpSum.makeComposition_">
+<code class="descname">makeComposition_</code><span class="sig-paren">(</span><em>this</em>, <em>H</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpSum.makeComposition_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.LinOpSum.makeHHt_">
+<code class="descname">makeHHt_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.LinOpSum.makeHHt_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-LinOp.SelectorLinOps"></span></div>
@@ -947,6 +1011,42 @@ vector whatever the given parameter sel. For specific selectors
 <p><strong>Example</strong> S=LinOpSelector(sel)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOpSelectorPatch</span></code>,
 <code class="xref py py-class docutils literal"><span class="pre">LinOpDownsample</span></code>.</p>
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelector.applyAdjoint_">
+<code class="descname">applyAdjoint_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelector.applyAdjoint_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelector.applyHHt_">
+<code class="descname">applyHHt_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelector.applyHHt_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelector.applyHtH_">
+<code class="descname">applyHtH_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelector.applyHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelector.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelector.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelector.makeHHt_">
+<code class="descname">makeHHt_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelector.makeHHt_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelector.makeHtH_">
+<code class="descname">makeHtH_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelector.makeHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -977,6 +1077,36 @@ are inherited.</p>
 <p><strong>Example</strong> D=LinOpDownsample(sz,df)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>,
 <code class="xref py py-class docutils literal"><span class="pre">LinOpSelectorPatch</span></code>.</p>
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpDownsample.applyAdjoint_">
+<code class="descname">applyAdjoint_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpDownsample.applyAdjoint_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpDownsample.applyHHt_">
+<code class="descname">applyHHt_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpDownsample.applyHHt_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpDownsample.applyHtH_">
+<code class="descname">applyHtH_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpDownsample.applyHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpDownsample.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpDownsample.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpDownsample.makeHtH_">
+<code class="descname">makeHtH_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpDownsample.makeHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1008,6 +1138,36 @@ to the first and last elements of the patch.</p>
 <p><strong>Example</strong> S=LinOpSelectorPatch(sz,idxmin,idxmax)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>,
 <code class="xref py py-class docutils literal"><span class="pre">LinOpDownsampling</span></code>.</p>
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelectorPatch.applyAdjoint_">
+<code class="descname">applyAdjoint_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelectorPatch.applyAdjoint_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelectorPatch.applyHHt_">
+<code class="descname">applyHHt_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelectorPatch.applyHHt_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelectorPatch.applyHtH_">
+<code class="descname">applyHtH_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelectorPatch.applyHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelectorPatch.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelectorPatch.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="LinOp.SelectorLinOps.LinOpSelectorPatch.makeHtH_">
+<code class="descname">makeHtH_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#LinOp.SelectorLinOps.LinOpSelectorPatch.makeHtH_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">LinOpSelector</span></code>.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1024,7 +1184,7 @@ to the first and last elements of the patch.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cost.html" class="btn btn-neutral float-right" title="Cost Functions (Cost)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="nonlinop.html" class="btn btn-neutral float-right" title="Non-Linear Operators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="abstract.html" class="btn btn-neutral" title="Abstract classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -1058,7 +1218,7 @@ to the first and last elements of the patch.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

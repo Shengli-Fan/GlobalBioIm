@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Examples &mdash; GlobalBioIm Library 1.1 documentation</title>
+  <title>Examples &mdash; GlobalBioIm Library 1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.1 documentation" href="index.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
         <link rel="next" title="Conditions of Use" href="conditionsuse.html"/>
         <link rel="prev" title="Important Informations" href="infos.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1
+                1.0
               </div>
             
           
@@ -92,7 +92,7 @@
             
               <p class="caption"><span class="caption-text">General</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference external" href="https://c4science.ch/diffusion/2843/">Download/Clone (v 0.2)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#d-deconvolution">3D Deconvolution</a></li>
@@ -104,6 +104,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opti.html">Optimization Algorithms (Opti)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="methodssummary.html">List of Methods</a></li>
@@ -185,8 +186,8 @@
 This sample contains three kind of structures:</p>
 <blockquote>
 <div><ul class="simple">
-<li>chromosomes in the nuclei (DAPI Channel - blue)</li>
-<li>point-wise spots  (CY3 Channel - red)</li>
+<li>nuclei (DAPI Channel - blue)</li>
+<li>protein spots  (CY3 Channel - red)</li>
 <li>microtubules (FITC channel - green)</li>
 </ul>
 </div></blockquote>
@@ -204,8 +205,7 @@ stained with CY3 (red).</span></p>
 <span class="n">sz</span><span class="o">=</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We then resize the PSF in order to properly deal with the periodic assumption of the FFT (principally in z where the data
-are present on boundaries of the volume). Note that we use the function <em>fft_best_dim</em> (Util/ folder) which allows to find sizes that are
+<p>We then resize the PSF in order to properly deal with the periodic assumption of the FFT (principally in z where  there is signal at the boundaries of the volume). Note that we use the function <em>fft_best_dim</em> (Util/ folder) which allows to find sizes that are
 suited for efficient FFT operations.</p>
 <div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="n">padsz</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">52</span><span class="p">];</span>
 <span class="n">sznew</span><span class="o">=</span><span class="n">fft_best_dim</span><span class="p">(</span><span class="n">sz</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">padsz</span><span class="p">);</span>
@@ -213,43 +213,45 @@ suited for efficient FFT operations.</p>
 <span class="n">psf</span><span class="o">=</span><span class="n">padarray</span><span class="p">(</span><span class="n">psf</span><span class="p">,</span><span class="n">halfPad</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;both&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We can now define our data fidelity term, TV regularization and positivity constraint.</p>
-<div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="o">%%</span> <span class="n">Least</span><span class="o">-</span><span class="n">Suares</span> <span class="n">Data</span> <span class="n">Fidelity</span> <span class="n">Term</span>
-<span class="n">H</span><span class="o">=</span><span class="n">LinOpConv</span><span class="p">(</span><span class="n">fftn</span><span class="p">(</span><span class="n">fftshift</span><span class="p">(</span><span class="n">psf</span><span class="p">)));</span>                      <span class="o">%</span> <span class="n">Convolution</span> <span class="n">Operator</span>
+<p>We can now define our data fidelity term, TV regularization, and positivity constraint.</p>
+<div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="o">%%</span> <span class="n">Least</span><span class="o">-</span><span class="n">Squares</span> <span class="n">Data</span> <span class="n">Fidelity</span> <span class="n">Term</span>
+<span class="n">H</span><span class="o">=</span><span class="n">LinOpConv</span><span class="p">(</span><span class="n">fftn</span><span class="p">(</span><span class="n">fftshift</span><span class="p">(</span><span class="n">psf</span><span class="p">)));</span>                      <span class="o">%</span> <span class="n">Convolution</span> <span class="n">operator</span>
 <span class="n">H</span><span class="o">.</span><span class="n">memoizeOpts</span><span class="o">.</span><span class="n">apply</span><span class="o">=</span><span class="n">true</span><span class="p">;</span>
-<span class="n">S</span><span class="o">=</span><span class="n">LinOpSelectorPatch</span><span class="p">(</span><span class="n">sznew</span><span class="p">,</span><span class="n">halfPad</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">sznew</span><span class="o">-</span><span class="n">halfPad</span><span class="p">);</span>   <span class="o">%</span> <span class="n">Selector</span> <span class="n">Operator</span>
+<span class="n">S</span><span class="o">=</span><span class="n">LinOpSelectorPatch</span><span class="p">(</span><span class="n">sznew</span><span class="p">,</span><span class="n">halfPad</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">sznew</span><span class="o">-</span><span class="n">halfPad</span><span class="p">);</span>   <span class="o">%</span> <span class="n">Selector</span> <span class="n">operator</span>
 <span class="n">L2</span><span class="o">=</span><span class="n">CostL2</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">sizeout</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>                                <span class="o">%</span> <span class="n">L2</span> <span class="n">cost</span> <span class="n">function</span>
-<span class="n">LS</span><span class="o">=</span><span class="n">L2</span><span class="o">*</span><span class="n">S</span><span class="p">;</span>                                               <span class="o">%</span> <span class="n">Least</span><span class="o">-</span><span class="n">Sqaures</span> <span class="n">data</span> <span class="n">term</span>
+<span class="n">LS</span><span class="o">=</span><span class="n">L2</span><span class="o">*</span><span class="n">S</span><span class="p">;</span>                                               <span class="o">%</span> <span class="n">Least</span><span class="o">-</span><span class="n">squares</span> <span class="n">data</span> <span class="n">term</span>
 <span class="o">%%</span> <span class="n">TV</span> <span class="n">Regularization</span>
-<span class="n">Freg</span><span class="o">=</span><span class="n">CostMixNorm21</span><span class="p">([</span><span class="n">sznew</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="mi">4</span><span class="p">);</span>      <span class="o">%</span> <span class="n">TV</span> <span class="n">regularizer</span><span class="p">:</span> <span class="n">Mixed</span> <span class="n">Norm</span> <span class="mi">2</span><span class="o">-</span><span class="mi">1</span>
-<span class="n">Opreg</span><span class="o">=</span><span class="n">LinOpGrad</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>               <span class="o">%</span> <span class="n">TV</span> <span class="n">regularizer</span><span class="p">:</span> <span class="n">Operator</span> <span class="n">Gradient</span>
+<span class="n">Freg</span><span class="o">=</span><span class="n">CostMixNorm21</span><span class="p">([</span><span class="n">sznew</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="mi">4</span><span class="p">);</span>      <span class="o">%</span> <span class="n">TV</span> <span class="n">regularizer</span><span class="p">:</span> <span class="n">Mixed</span> <span class="n">norm</span> <span class="mi">2</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">Opreg</span><span class="o">=</span><span class="n">LinOpGrad</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>               <span class="o">%</span> <span class="n">TV</span> <span class="n">regularizer</span><span class="p">:</span> <span class="n">Operator</span> <span class="n">gradient</span>
 <span class="n">Opreg</span><span class="o">.</span><span class="n">memoizeOpts</span><span class="o">.</span><span class="n">apply</span><span class="o">=</span><span class="n">true</span><span class="p">;</span>
 <span class="n">lamb</span><span class="o">=</span><span class="mf">2e-6</span><span class="p">;</span>                            <span class="o">%</span> <span class="n">Regularization</span> <span class="n">parameter</span>
 <span class="o">%%</span> <span class="n">Positivity</span> <span class="n">constraint</span>
 <span class="n">pos</span><span class="o">=</span><span class="n">CostNonNeg</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>                <span class="o">%</span> <span class="n">Non</span><span class="o">-</span><span class="n">Negativity</span><span class="p">:</span> <span class="n">Indicator</span> <span class="n">function</span>
-<span class="n">Id</span><span class="o">=</span><span class="n">LinOpIdentity</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>              <span class="o">%</span> <span class="n">Identity</span> <span class="n">Operator</span>
+<span class="n">Id</span><span class="o">=</span><span class="n">LinOpIdentity</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>              <span class="o">%</span> <span class="n">Identity</span> <span class="n">operator</span>
 </pre></div>
 </div>
 <p>Here, our cost function is as follows
 $$ \mathcal{C}(\mathrm{x}) = \frac12 \|\mathrm{SHx - y} \|_2^2 + \lambda \|\nabla \mathrm{x} \|_{2,1} + i_{\geq 0}(\mathrm{x})$$
 where \(\lambda &gt;0\) is the regularization parameter, \(\mathrm{S}\) a selector operator that selects the “non-padded”
-part of the convolution result \(\mathrm{Hx}\) and the two others terms are respectively the TV regularization and the positivity
+part of the convolution result \(\mathrm{Hx}\), and the two others terms are respectively the TV regularization and the positivity
 constraint. We are now ready to instanciate and run our algorithm (here ADMM) in order to minimize the above functional.</p>
-<div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="n">maxIt</span><span class="o">=</span><span class="mi">300</span><span class="p">;</span>                     <span class="o">%</span> <span class="n">Maximal</span> <span class="n">number</span> <span class="n">of</span> <span class="n">iterations</span>
+<div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="n">dispIt</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>                     <span class="o">%</span> <span class="n">Verbose</span> <span class="n">every</span> <span class="mi">30</span> <span class="n">iterations</span>
+<span class="n">maxIt</span><span class="o">=</span><span class="mi">300</span><span class="p">;</span>                     <span class="o">%</span> <span class="n">Maximal</span> <span class="n">number</span> <span class="n">of</span> <span class="n">iterations</span>
 <span class="n">Fn</span><span class="o">=</span><span class="p">{</span><span class="n">LS</span><span class="p">,</span><span class="n">lamb</span><span class="o">*</span><span class="n">Freg</span><span class="p">,</span><span class="n">pos</span><span class="p">};</span>         <span class="o">%</span> <span class="n">Functionals</span> <span class="n">F_n</span> <span class="n">constituting</span> <span class="n">the</span> <span class="n">cost</span>
 <span class="n">Hn</span><span class="o">=</span><span class="p">{</span><span class="n">H</span><span class="p">,</span><span class="n">Opreg</span><span class="p">,</span><span class="n">Id</span><span class="p">};</span>               <span class="o">%</span> <span class="n">Associated</span> <span class="n">operators</span> <span class="n">H_n</span>
 <span class="n">rho_n</span><span class="o">=</span><span class="p">[</span><span class="mf">1e-3</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">];</span>        <span class="o">%</span> <span class="n">Multipliers</span> <span class="n">rho_n</span>
-<span class="n">ADMM</span><span class="o">=</span><span class="n">OptiADMM</span><span class="p">([],</span><span class="n">Fn</span><span class="p">,</span><span class="n">Hn</span><span class="p">,</span><span class="n">rho_n</span><span class="p">,[],</span><span class="n">OutputOpti</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">gt</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="n">maxIt</span><span class="o">/</span><span class="mi">10</span><span class="p">)));</span>
-<span class="n">ADMM</span><span class="o">.</span><span class="n">ItUpOut</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">maxIt</span><span class="o">/</span><span class="mi">10</span><span class="p">);</span>
+<span class="n">ADMM</span><span class="o">=</span><span class="n">OptiADMM</span><span class="p">([],</span><span class="n">Fn</span><span class="p">,</span><span class="n">Hn</span><span class="p">,</span><span class="n">rho_n</span><span class="p">,[],</span><span class="n">OutputOpti</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">gt</span><span class="p">,</span><span class="n">dispIt</span><span class="p">));</span>
+<span class="n">ADMM</span><span class="o">.</span><span class="n">ItUpOut</span><span class="o">=</span><span class="n">dispIt</span><span class="p">;</span>
 <span class="n">ADMM</span><span class="o">.</span><span class="n">maxiter</span><span class="o">=</span><span class="n">maxIt</span><span class="p">;</span>
 <span class="n">ADMM</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">xopt</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Note that here we do not need to give a solver to the ADMM algorithm (5th argument) since the library operator algebra makes that
+<p>Here, three splitting have been done: \(\mathrm{u_1=Hx}, \; \mathrm{u_2=\nabla x}\) and \(\mathrm{u_3=x}\).
+Note that we do not need to give a solver to the ADMM algorithm (5th argument) since the library operator algebra makes that
 building the operator
 $$\rho_1 \mathrm{H^*H} + \rho_2 \nabla^* \nabla + \rho_3 \mathrm{I}$$
 results in a <code class="xref py py-class docutils literal"><span class="pre">LinOpConv</span></code> which is invertible. Hence ADMM builds this operator automatically and uses its inverse for the
-quadratic step of the algorithm.</p>
+linear step  of the algorithm (minimization over \(\mathrm{x}\)).</p>
 <p>The deconvolved image is presented in Fig. 2.</p>
 <div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="_images/Deconv3D.png"><img alt="Deconvolution result." src="_images/Deconv3D.png" style="width: 439.6px; height: 459.2px;" /></a>
@@ -302,7 +304,7 @@ quadratic step of the algorithm.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
