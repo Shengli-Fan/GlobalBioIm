@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Examples &mdash; GlobalBioIm Library 1.0 documentation</title>
+  <title>Examples &mdash; GlobalBioIm Library 1.0.1 documentation</title>
   
 
   
@@ -35,9 +35,9 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0.1 documentation" href="index.html"/>
         <link rel="next" title="Conditions of Use" href="conditionsuse.html"/>
-        <link rel="prev" title="Important Informations" href="infos.html"/> 
+        <link rel="prev" title="Important Information" href="infos.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0
+                1.0.1
               </div>
             
           
@@ -93,7 +93,7 @@
               <p class="caption"><span class="caption-text">General</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Information</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#d-deconvolution">3D Deconvolution</a></li>
 </ul>
@@ -102,7 +102,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Technical Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
@@ -179,24 +179,23 @@
             
   <div class="section" id="examples">
 <span id="ref-examples"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<p>This section presents some examples of use of the Library.</p>
 <div class="section" id="d-deconvolution">
 <h2>3D Deconvolution<a class="headerlink" href="#d-deconvolution" title="Permalink to this headline">¶</a></h2>
-<p>We consider the C. elegans embryo real dataset (\(672 \times 712 \times 104 \)) which can be downloaded <a class="reference external" href="http://bigwww.epfl.ch/deconvolution/bio/">here</a> and which is presented on Fig. 1.
-This sample contains three kind of structures:</p>
+<p>We consider the C. elegans embryo real dataset (\(672 \times 712 \times 104 \)) that can be downloaded <a class="reference external" href="http://bigwww.epfl.ch/deconvolution/bio/">here</a> and that is shown in Figure 1.
+This sample contains</p>
 <blockquote>
 <div><ul class="simple">
-<li>nuclei (DAPI Channel - blue)</li>
-<li>protein spots  (CY3 Channel - red)</li>
-<li>microtubules (FITC channel - green)</li>
+<li>nuclei (DAPI channel-blue)</li>
+<li>protein spots  (CY3 channel-red)</li>
+<li>microtubules (FITC channel-green).</li>
 </ul>
 </div></blockquote>
-<p>The PSF for each channel, generated from a theoretical model, are also provided <a class="reference external" href="http://bigwww.epfl.ch/deconvolution/bio/">here</a>.
-In the following, each channel is deconvolved separately using the same code presented below.</p>
+<p>The PSF for each channel, generated from a theoretical model, is also provided <a class="reference external" href="http://bigwww.epfl.ch/deconvolution/bio/">here</a>.
+In what follows, each channel is deconvolved separately using the same code.</p>
 <div class="figure align-center" id="id2">
 <a class="reference internal image-reference" href="_images/ConvData.png"><img alt="C. Elegans embryo" src="_images/ConvData.png" style="width: 443.8px; height: 457.8px;" /></a>
-<p class="caption"><span class="caption-text">Fig 1. C. Elegans embryo. Three kind of structures: chromosomes in the nuclei (blue), microtubules (green) and a protein
-stained with CY3 (red).</span></p>
+<p class="caption"><span class="caption-text">Fig 1. C. Elegans embryo. Blue: chromosomes in the nuclei. Green: microtubules. Red: a protein
+stained with CY3.</span></p>
 </div>
 <p>We start by reading the data</p>
 <div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="o">%%</span> <span class="n">Reading</span> <span class="n">data</span>
@@ -205,36 +204,37 @@ stained with CY3 (red).</span></p>
 <span class="n">sz</span><span class="o">=</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We then resize the PSF in order to properly deal with the periodic assumption of the FFT (principally in z where  there is signal at the boundaries of the volume). Note that we use the function <em>fft_best_dim</em> (Util/ folder) which allows to find sizes that are
-suited for efficient FFT operations.</p>
+<p>We then resize the PSF and enforce compliance with the periodic assumption of the FFT. This is particularly relevant in the axial direction where  there is signal at the boundaries of the volume.
+Note that the function <em>fft_best_dim</em> (Util/ folder) returns sizes that are
+suited to efficient FFT operations.</p>
 <div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="n">padsz</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">52</span><span class="p">];</span>
 <span class="n">sznew</span><span class="o">=</span><span class="n">fft_best_dim</span><span class="p">(</span><span class="n">sz</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">padsz</span><span class="p">);</span>
 <span class="n">halfPad</span><span class="o">=</span><span class="p">(</span><span class="n">sznew</span><span class="o">-</span><span class="n">sz</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
 <span class="n">psf</span><span class="o">=</span><span class="n">padarray</span><span class="p">(</span><span class="n">psf</span><span class="p">,</span><span class="n">halfPad</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;both&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We can now define our data fidelity term, TV regularization, and positivity constraint.</p>
-<div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="o">%%</span> <span class="n">Least</span><span class="o">-</span><span class="n">Squares</span> <span class="n">Data</span> <span class="n">Fidelity</span> <span class="n">Term</span>
+<p>We now define our data-fidelity term, TV regularization, and nonnegativity constraint.</p>
+<div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="o">%%</span> <span class="n">Least</span><span class="o">-</span><span class="n">squares</span> <span class="n">data</span><span class="o">-</span><span class="n">fidelity</span> <span class="n">term</span>
 <span class="n">H</span><span class="o">=</span><span class="n">LinOpConv</span><span class="p">(</span><span class="n">fftn</span><span class="p">(</span><span class="n">fftshift</span><span class="p">(</span><span class="n">psf</span><span class="p">)));</span>                      <span class="o">%</span> <span class="n">Convolution</span> <span class="n">operator</span>
 <span class="n">H</span><span class="o">.</span><span class="n">memoizeOpts</span><span class="o">.</span><span class="n">apply</span><span class="o">=</span><span class="n">true</span><span class="p">;</span>
 <span class="n">S</span><span class="o">=</span><span class="n">LinOpSelectorPatch</span><span class="p">(</span><span class="n">sznew</span><span class="p">,</span><span class="n">halfPad</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">sznew</span><span class="o">-</span><span class="n">halfPad</span><span class="p">);</span>   <span class="o">%</span> <span class="n">Selector</span> <span class="n">operator</span>
 <span class="n">L2</span><span class="o">=</span><span class="n">CostL2</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">sizeout</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>                                <span class="o">%</span> <span class="n">L2</span> <span class="n">cost</span> <span class="n">function</span>
 <span class="n">LS</span><span class="o">=</span><span class="n">L2</span><span class="o">*</span><span class="n">S</span><span class="p">;</span>                                               <span class="o">%</span> <span class="n">Least</span><span class="o">-</span><span class="n">squares</span> <span class="n">data</span> <span class="n">term</span>
-<span class="o">%%</span> <span class="n">TV</span> <span class="n">Regularization</span>
+<span class="o">%%</span> <span class="n">TV</span> <span class="n">regularization</span>
 <span class="n">Freg</span><span class="o">=</span><span class="n">CostMixNorm21</span><span class="p">([</span><span class="n">sznew</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="mi">4</span><span class="p">);</span>      <span class="o">%</span> <span class="n">TV</span> <span class="n">regularizer</span><span class="p">:</span> <span class="n">Mixed</span> <span class="n">norm</span> <span class="mi">2</span><span class="o">-</span><span class="mi">1</span>
 <span class="n">Opreg</span><span class="o">=</span><span class="n">LinOpGrad</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>               <span class="o">%</span> <span class="n">TV</span> <span class="n">regularizer</span><span class="p">:</span> <span class="n">Operator</span> <span class="n">gradient</span>
 <span class="n">Opreg</span><span class="o">.</span><span class="n">memoizeOpts</span><span class="o">.</span><span class="n">apply</span><span class="o">=</span><span class="n">true</span><span class="p">;</span>
 <span class="n">lamb</span><span class="o">=</span><span class="mf">2e-6</span><span class="p">;</span>                            <span class="o">%</span> <span class="n">Regularization</span> <span class="n">parameter</span>
-<span class="o">%%</span> <span class="n">Positivity</span> <span class="n">constraint</span>
-<span class="n">pos</span><span class="o">=</span><span class="n">CostNonNeg</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>                <span class="o">%</span> <span class="n">Non</span><span class="o">-</span><span class="n">Negativity</span><span class="p">:</span> <span class="n">Indicator</span> <span class="n">function</span>
+<span class="o">%%</span> <span class="n">Nonnegativity</span> <span class="n">constraint</span>
+<span class="n">pos</span><span class="o">=</span><span class="n">CostNonNeg</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>                <span class="o">%</span> <span class="n">Nonnegativity</span><span class="p">:</span> <span class="n">Indicator</span> <span class="n">function</span>
 <span class="n">Id</span><span class="o">=</span><span class="n">LinOpIdentity</span><span class="p">(</span><span class="n">sznew</span><span class="p">);</span>              <span class="o">%</span> <span class="n">Identity</span> <span class="n">operator</span>
 </pre></div>
 </div>
-<p>Here, our cost function is as follows
-$$ \mathcal{C}(\mathrm{x}) = \frac12 \|\mathrm{SHx - y} \|_2^2 + \lambda \|\nabla \mathrm{x} \|_{2,1} + i_{\geq 0}(\mathrm{x})$$
-where \(\lambda &gt;0\) is the regularization parameter, \(\mathrm{S}\) a selector operator that selects the “non-padded”
-part of the convolution result \(\mathrm{Hx}\), and the two others terms are respectively the TV regularization and the positivity
-constraint. We are now ready to instanciate and run our algorithm (here ADMM) in order to minimize the above functional.</p>
+<p>Here, our cost function is
+$$ \mathcal{C}(\mathrm{x}) = \frac12 \|\mathrm{SHx - y} \|_2^2 + \lambda \|\nabla \mathrm{x} \|_{2,1} + i_{\geq 0}(\mathrm{x}),$$
+where \(\lambda &gt;0\) is the regularization parameter, \(\mathrm{S}\) an operator that selects the “unpadded” (valid)
+part of the convolution result \(\mathrm{Hx}\), and the two other terms are the TV regularization and the nonnegativity
+constraint, respectively. We are now ready to instanciate and run our algorithm (here, ADMM) to minimize our functional.</p>
 <div class="code matlab highlight-default"><div class="highlight"><pre><span></span><span class="n">dispIt</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>                     <span class="o">%</span> <span class="n">Verbose</span> <span class="n">every</span> <span class="mi">30</span> <span class="n">iterations</span>
 <span class="n">maxIt</span><span class="o">=</span><span class="mi">300</span><span class="p">;</span>                     <span class="o">%</span> <span class="n">Maximal</span> <span class="n">number</span> <span class="n">of</span> <span class="n">iterations</span>
 <span class="n">Fn</span><span class="o">=</span><span class="p">{</span><span class="n">LS</span><span class="p">,</span><span class="n">lamb</span><span class="o">*</span><span class="n">Freg</span><span class="p">,</span><span class="n">pos</span><span class="p">};</span>         <span class="o">%</span> <span class="n">Functionals</span> <span class="n">F_n</span> <span class="n">constituting</span> <span class="n">the</span> <span class="n">cost</span>
@@ -248,16 +248,15 @@ constraint. We are now ready to instanciate and run our algorithm (here ADMM) in
 <span class="n">ADMM</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">xopt</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Here, three splitting have been done: \(\mathrm{u_1=Hx}, \; \mathrm{u_2=\nabla x}\) and \(\mathrm{u_3=x}\).
-Note that we do not need to give a solver to the ADMM algorithm (5th argument) since the library operator algebra makes that
-building the operator
+<p>Here, three splittings have been done: \(\mathrm{u_1=Hx}, \; \mathrm{u_2=\nabla x}\), and \(\mathrm{u_3=x}\).
+We do not need to provide a solver to the ADMM algorithm (5th argument) since the operator algebra ensures that the operator
 $$\rho_1 \mathrm{H^*H} + \rho_2 \nabla^* \nabla + \rho_3 \mathrm{I}$$
-results in a <code class="xref py py-class docutils literal"><span class="pre">LinOpConv</span></code> which is invertible. Hence ADMM builds this operator automatically and uses its inverse for the
+results in a <code class="xref py py-class docutils literal"><span class="pre">LinOpConv</span></code> that is invertible. Hence, ADMM builds this operator automatically and uses its inverse for the
 linear step  of the algorithm (minimization over \(\mathrm{x}\)).</p>
-<p>The deconvolved image is presented in Fig. 2.</p>
+<p>The deconvolved image is shown in Figure 2.</p>
 <div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="_images/Deconv3D.png"><img alt="Deconvolution result." src="_images/Deconv3D.png" style="width: 439.6px; height: 459.2px;" /></a>
-<p class="caption"><span class="caption-text">Fig 2. Deconvolution result of the C. Elegans embryo.</span></p>
+<p class="caption"><span class="caption-text">Fig 2. Deconvolved C. Elegans embryo.</span></p>
 </div>
 </div>
 </div>
@@ -275,7 +274,7 @@ linear step  of the algorithm (minimization over \(\mathrm{x}\)).</p>
         <a href="conditionsuse.html" class="btn btn-neutral float-right" title="Conditions of Use" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="infos.html" class="btn btn-neutral" title="Important Informations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="infos.html" class="btn btn-neutral" title="Important Information" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -306,7 +305,7 @@ linear step  of the algorithm (minimization over \(\mathrm{x}\)).</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0',
+            VERSION:'1.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

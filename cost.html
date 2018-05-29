@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cost Functions (Cost) &mdash; GlobalBioIm Library 1.0 documentation</title>
+  <title>Cost Functions (Cost) &mdash; GlobalBioIm Library 1.0.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0.1 documentation" href="index.html"/>
         <link rel="next" title="Optimization Algorithms (Opti)" href="opti.html"/>
         <link rel="prev" title="Non-Linear Operators" href="nonlinop.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0
+                1.0.1
               </div>
             
           
@@ -93,19 +93,20 @@
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Technical Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cost Functions (Cost)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#costgoodroughness">CostGoodRoughness</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costhyperbolic">CostHyperBolic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costkullleib">CostKullLeib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#costlinear">CostLinear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costl1">CostL1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costl2">CostL2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#costl2composition">CostL2Composition</a></li>
@@ -327,6 +328,50 @@ $$ D_{KL}(\mathrm{z}_n) := \left\lbrace \begin{array}[ll]
 </dd></dl>
 
 </div>
+<div class="section" id="costlinear">
+<h2>CostLinear<a class="headerlink" href="#costlinear" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Cost.CostLinear">
+<em class="property">class </em><code class="descclassname">Cost.</code><code class="descname">CostLinear</code><span class="sig-paren">(</span><em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostLinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Abstract.Cost</span></code></p>
+<p>CostLinear: Linear cost function
+$$C(\mathrm{x}) := \mathrm{x}^T\mathrm{y}$$</p>
+<p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> are inherited.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – data vector  (default 0)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> C=CostLinear(sz,y)</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
+<dl class="method">
+<dt id="Cost.CostLinear.applyGrad_">
+<code class="descname">applyGrad_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostLinear.applyGrad_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>. 
+Constant gradient: 
+$$ \nabla C(\mathrm{x}) = \mathrm{y}$$</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostLinear.applyProx_">
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostLinear.applyProx_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code> 
+$$ \mathrm{prox}_{\alpha C}(\mathrm{x}) =\mathrm{x} - \alpha \mathrm{y} $$</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Cost.CostLinear.apply_">
+<code class="descname">apply_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.CostLinear.apply_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>. 
+$$C(\mathrm{x}) := \mathrm{x}^T\mathrm{y}$$</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="costl1">
 <h2>CostL1<a class="headerlink" href="#costl1" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -370,11 +415,15 @@ $$C(\mathrm{x}) := \frac12\|\mathrm{x} - \mathrm{y}\|^2_W = \frac12 (\mathrm{x} 
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>W</strong> – weighting <code class="xref py py-class docutils literal"><span class="pre">LinOpDiag</span></code> object or scalar (default 1)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>y</strong> – data vector  (default 0)</li>
+<li><strong>W</strong> – weighting <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code> object or scalar (default 1)</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Example</strong> C=CostL2(sz,y,wght)</p>
+<p><strong>Example</strong> C=CostL2(sz,y,W)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code></p>
 <dl class="method">
 <dt id="Cost.CostL2.applyGrad_">
@@ -746,7 +795,7 @@ $$ C(x) = \left\lbrace \begin{array}[l]
 <h3>CostComplexRing<a class="headerlink" href="#costcomplexring" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="Cost.IndicatorFunctions.CostComplexRing">
-<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexRing</code><span class="sig-paren">(</span><em>inner</em>, <em>outer</em>, <em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexRing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexRing</code><span class="sig-paren">(</span><em>sz</em>, <em>inner</em>, <em>outer</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexRing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostIndicator</span></code></p>
 <p>CostComplexRing: Implements
 the indicator function operator on the complex ring
@@ -770,7 +819,7 @@ $$ C(x) = \left\lbrace \begin{array}[l]
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code></p>
 <dl class="method">
 <dt id="Cost.IndicatorFunctions.CostComplexRing.applyProx_">
-<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexRing.applyProx_" title="Permalink to this definition">¶</a></dt>
+<code class="descname">applyProx_</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>~</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexRing.applyProx_" title="Permalink to this definition">¶</a></dt>
 <dd><p>apply the operator
 Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>.</p>
 </dd></dl>
@@ -788,13 +837,14 @@ Reimplemented from parent class <code class="xref py py-class docutils literal">
 <h3>CostComplexCircle<a class="headerlink" href="#costcomplexcircle" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="Cost.IndicatorFunctions.CostComplexCircle">
-<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexCircle</code><span class="sig-paren">(</span><em>radius</em>, <em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexCircle" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexCircle</code><span class="sig-paren">(</span><em>sz</em>, <em>radius</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexCircle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostComplexRing</span></code></p>
 <p>CostComplexCircle: Implements the indicator on the complex circle of radius c
 $$ C(x) = \left\lbrace \begin{array}[l]
 \text{0~if } \vert \mathrm{x-y}\vert =c  \newline
 + \infty \text{ otherwise.} \end{array} \right. $$</p>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostComplexRing</span></code> are inherited</p>
+<p>:param radius radius of the circle (default 1)</p>
 <p><strong>Example</strong> C=CostComplexCircle(radius,sz,y)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostComplexRing</span></code></p>
 </dd></dl>
@@ -804,14 +854,15 @@ $$ C(x) = \left\lbrace \begin{array}[l]
 <h3>CostComplexDisk<a class="headerlink" href="#costcomplexdisk" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="Cost.IndicatorFunctions.CostComplexDisk">
-<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexDisk</code><span class="sig-paren">(</span><em>radius</em>, <em>sz</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexDisk" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Cost.IndicatorFunctions.</code><code class="descname">CostComplexDisk</code><span class="sig-paren">(</span><em>sz</em>, <em>radius</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Cost.IndicatorFunctions.CostComplexDisk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Cost.IndicatorFunctions.CostComplexRing</span></code></p>
 <p>CostComplexDisk: Implements the indocator function on the complex disk of radius c
 $$ C(x) = \left\lbrace \begin{array}[l]
 \text{0~if } \vert \mathrm{x-y}\vert \leq c  \newline
 + \infty \text{ otherwise.} \end{array} \right. $$</p>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">CostComplexRing</span></code> are inherited</p>
-<p><strong>Example</strong> C=CostComplexDisk(radius,sz,y)</p>
+<p>:param radius radius of the disk (default 1)</p>
+<p><strong>Example</strong> C=CostComplexDisk(sz,radius, y)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>, <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostIndicator</span></code>, <code class="xref py py-class docutils literal"><span class="pre">CostComplexRing</span></code></p>
 </dd></dl>
 
@@ -863,7 +914,7 @@ $$ C(x) = \left\lbrace \begin{array}[l]
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0',
+            VERSION:'1.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Optimization Algorithms (Opti) &mdash; GlobalBioIm Library 1.0 documentation</title>
+  <title>Optimization Algorithms (Opti) &mdash; GlobalBioIm Library 1.0.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0.1 documentation" href="index.html"/>
         <link rel="next" title="List of Methods" href="methodssummary.html"/>
         <link rel="prev" title="Cost Functions (Cost)" href="cost.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0
+                1.0.1
               </div>
             
           
@@ -93,13 +93,13 @@
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Technical Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linop.html">Linear Operators (LinOp)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nonlinop.html">Non-Linear Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cost.html">Cost Functions (Cost)</a></li>
@@ -114,7 +114,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#optiprimaldualcondat">OptiPrimalDualCondat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optirichlucy">OptiRichLucy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optivmlmb">OptiVMLMB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#outputopti">OutputOpti</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outputopti">OutputOpti</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#outputopti-default">OutputOpti (Default)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outputoptiadmm">OutputOptiADMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outputopticonjgrad">OutputOptiConjGrad</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#testcvg">TestCvg</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#testcvg-default">TestCvg (Default)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testcvgcombine">TestCvgCombine</a></li>
@@ -355,8 +360,6 @@ $$ C(\mathrm{x})= \frac12 \mathrm{x^TAx - b^Tx} $$</p>
 </tbody>
 </table>
 <p>All attributes of parent class <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> are inherited.</p>
-<p><strong>Note</strong>: In this algorithm the parameter cost is not fixed to the above functional
-but to the squared resildual \( 0.5\Vert \mathrm{Ax - b}\Vert^2 \)</p>
 <p><strong>Example</strong> CG=OptiConjGrad(A,b,OutOp)</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>, <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code> <code class="xref py py-class docutils literal"><span class="pre">Cost</span></code></p>
 <dl class="method">
@@ -720,7 +723,8 @@ See OptimPackLegacy <a class="reference external" href="https://github.com/emmt/
 <dl class="method">
 <dt id="Opti.OptiVMLMB.doIteration">
 <code class="descname">doIteration</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OptiVMLMB.doIteration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1].</p>
+<dd><p>Reimplementation from <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>. For details see [1].
+Computes next step:</p>
 </dd></dl>
 
 <dl class="method">
@@ -731,12 +735,14 @@ See OptimPackLegacy <a class="reference external" href="https://github.com/emmt/
 
 </dd></dl>
 
-</div>
+<span class="target" id="module-Opti.OutputOpti"></span></div>
 <div class="section" id="outputopti">
 <h2>OutputOpti<a class="headerlink" href="#outputopti" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="outputopti-default">
+<h3>OutputOpti (Default)<a class="headerlink" href="#outputopti-default" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
-<dt id="Opti.OutputOpti">
-<em class="property">class </em><code class="descclassname">Opti.</code><code class="descname">OutputOpti</code><span class="sig-paren">(</span><em>computecost</em>, <em>xtrue</em>, <em>iterVerb</em>, <em>costIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OutputOpti.OutputOpti">
+<em class="property">class </em><code class="descclassname">Opti.OutputOpti.</code><code class="descname">OutputOpti</code><span class="sig-paren">(</span><em>computecost</em>, <em>xtrue</em>, <em>iterVerb</em>, <em>costIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOpti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">handle</span></code></p>
 <p>OutputOpti class for algorithms displayings and savings</p>
 <p>At each <code class="xref py py-attr docutils literal"><span class="pre">ItUpOut</span></code> iterations of an optimization algorithm (see <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> generic class),
@@ -767,6 +773,8 @@ defined computations, e.g.,</p>
 <li><strong>xtrue</strong> – ground truth to compute the error with the solution (if provided)</li>
 <li><strong>evolcost</strong> – array to save the evolution of the cost function</li>
 <li><strong>evolsnr</strong> – array to save the evolution of the SNR</li>
+<li><strong>saveXopt</strong> – boolean (defaul true) to save the evolution of the optimized variable xopt.</li>
+<li><strong>evolxopt</strong> – cell saving the optimization variable xopt</li>
 <li><strong>iterVerb</strong> – message will be displayed every iterVerb iterations (must be a multiple of the <code class="xref py py-attr docutils literal"><span class="pre">ItUpOut</span></code> parameter of classes <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>)</li>
 <li><strong>costIndex</strong> – select a specific cost function among a sum in the case where the optimized cost function is a sum of cost functions</li>
 </ul>
@@ -780,20 +788,94 @@ be generic for all Optimization routines. Hence the update method has access (in
 to all the properties of <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> objects.</p>
 <p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code></p>
 <dl class="method">
-<dt id="Opti.OutputOpti.init">
-<code class="descname">init</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.init" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OutputOpti.OutputOpti.computeCost">
+<code class="descname">computeCost</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOpti.computeCost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the cost function at the current iterate xopt of
+the given <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> opti object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OutputOpti.OutputOpti.computeSNR">
+<code class="descname">computeSNR</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOpti.computeSNR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the snr for the current iterate xopt of
+the given <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> opti object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Opti.OutputOpti.OutputOpti.init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOpti.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the arrays and counters.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="Opti.OutputOpti.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.update" title="Permalink to this definition">¶</a></dt>
+<dt id="Opti.OutputOpti.OutputOpti.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOpti.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes SNR, cost and display evolution.</p>
 </dd></dl>
 
 </dd></dl>
 
+</div>
+<div class="section" id="outputoptiadmm">
+<h3>OutputOptiADMM<a class="headerlink" href="#outputoptiadmm" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.OutputOpti.OutputOptiADMM">
+<em class="property">class </em><code class="descclassname">Opti.OutputOpti.</code><code class="descname">OutputOptiADMM</code><span class="sig-paren">(</span><em>computecost</em>, <em>xtrue</em>, <em>iterVerb</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOptiADMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Opti.OutputOpti.OutputOpti</span></code></p>
+<p>OutputOptiADMM class for OptiADMM displayings and savings</p>
+<p>Special <code class="xref py py-class docutils literal"><span class="pre">OutpuOpti</span></code> for ADMM which evaluates the Lagrangian
+instead of the cost function.</p>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code></p>
+<dl class="method">
+<dt id="Opti.OutputOpti.OutputOptiADMM.computeCost">
+<code class="descname">computeCost</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOptiADMM.computeCost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code>.
+Evaluates the Lagrangian instead of the objective function.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="outputopticonjgrad">
+<h3>OutputOptiConjGrad<a class="headerlink" href="#outputopticonjgrad" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Opti.OutputOpti.OutputOptiConjGrad">
+<em class="property">class </em><code class="descclassname">Opti.OutputOpti.</code><code class="descname">OutputOptiConjGrad</code><span class="sig-paren">(</span><em>computecost</em>, <em>yty</em>, <em>xtrue</em>, <em>iterVerb</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOptiConjGrad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Opti.OutputOpti.OutputOpti</span></code></p>
+<p>OutputOptiConjGrad class displayings and savings dedicated to for OptiConjGrad</p>
+<p>The conjugate gradient algorithm minimizes the function
+$$ C(\mathrm{x})= \frac12 \mathrm{x^TAx - b^Tx} $$
+However in many cases, it is often used to minimize:
+$$ F(\mathrm{x})= \frac12 \|H x - y\|^2_W $$
+by setting:
+$$\mathrm{A} = \mathrm{H^T W H} \quad \text{and}\quad \mathrm{b = H^T W y}$$
+An OutputOptiConjGrad object compute the cost F instead of the cost C.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>computecost</strong> – boolean, if true the cost function will be computed</li>
+<li><strong>xtrue</strong> – ground truth to compute the error with the solution (if provided)</li>
+<li><strong>iterVerb</strong> – message will be displayed every iterVerb iterations (must be a multiple of the <code class="xref py py-attr docutils literal"><span class="pre">ItUpOut</span></code> parameter of classes <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code>)</li>
+<li><strong>ytWy</strong> – weighted norm of $y$ : $ \mathrm{ytWy} = \mathrm{ y^T\,W\,y}$</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>See also <code class="xref py py-class docutils literal"><span class="pre">OptiConjGrad</span></code> <code class="xref py py-class docutils literal"><span class="pre">OutputOpti</span></code></p>
+<dl class="method">
+<dt id="Opti.OutputOpti.OutputOptiConjGrad.computeCost">
+<code class="descname">computeCost</code><span class="sig-paren">(</span><em>this</em>, <em>opti</em><span class="sig-paren">)</span><a class="headerlink" href="#Opti.OutputOpti.OutputOptiConjGrad.computeCost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the cost function at the current iterate xopt of
+the given <code class="xref py py-class docutils literal"><span class="pre">Opti</span></code> opti object</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-Opti.TestCvg"></span></div>
+</div>
 <div class="section" id="testcvg">
 <h2>TestCvg<a class="headerlink" href="#testcvg" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="testcvg-default">
@@ -1079,7 +1161,7 @@ apply the adjoint of Hn at every iteration, which may be costly</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0',
+            VERSION:'1.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

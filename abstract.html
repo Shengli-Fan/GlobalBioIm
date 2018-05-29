@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Abstract classes &mdash; GlobalBioIm Library 1.0 documentation</title>
+  <title>Abstract Classes &mdash; GlobalBioIm Library 1.0.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="GlobalBioIm Library 1.0 documentation" href="index.html"/>
+    <link rel="top" title="GlobalBioIm Library 1.0.1 documentation" href="index.html"/>
         <link rel="next" title="Linear Operators (LinOp)" href="linop.html"/>
         <link rel="prev" title="Conditions of Use" href="conditionsuse.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0
+                1.0.1
               </div>
             
           
@@ -93,13 +93,13 @@
               <p class="caption"><span class="caption-text">General</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/Biomedical-Imaging-Group/GlobalBioIm">Download or Clone (v 1.0)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Informations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infos.html">Important Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conditionsuse.html">Conditions of Use</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Technical Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Abstract classes</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Abstract Classes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#map">Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linop">LinOp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cost">Cost</a></li>
@@ -176,7 +176,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Abstract classes</li>
+      <li>Abstract Classes</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -196,7 +196,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="abstract-classes">
-<h1>Abstract classes<a class="headerlink" href="#abstract-classes" title="Permalink to this headline">¶</a></h1>
+<h1>Abstract Classes<a class="headerlink" href="#abstract-classes" title="Permalink to this headline">¶</a></h1>
 <p>This section describes the abstract classes of the GlobalBioIm library. It provides general properties for
 every derived classes.</p>
 <span class="target" id="module-Abstract"></span><div class="section" id="map">
@@ -242,7 +242,7 @@ the result of H*x.</p>
 
 <dl class="method">
 <dt id="Abstract.Map.applyInverse">
-<code class="descname">applyInverse</code><span class="sig-paren">(</span><em>this</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Abstract.Map.applyInverse" title="Permalink to this definition">¶</a></dt>
+<code class="descname">applyInverse</code><span class="sig-paren">(</span><em>this</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#Abstract.Map.applyInverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes \(\mathrm{x} = \mathrm{H}^{-1} \mathrm{y}\) for the given
 \(\mathrm{y} \in \mathrm{Y}\). (if applicable)</p>
 <p>Calls the method <code class="xref py py-meth docutils literal"><span class="pre">applyInverse_()</span></code></p>
@@ -256,7 +256,7 @@ the result of H*x.</p>
 
 <dl class="method">
 <dt id="Abstract.Map.applyJacobianT">
-<code class="descname">applyJacobianT</code><span class="sig-paren">(</span><em>this</em>, <em>y</em>, <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#Abstract.Map.applyJacobianT" title="Permalink to this definition">¶</a></dt>
+<code class="descname">applyJacobianT</code><span class="sig-paren">(</span><em>this</em>, <em>x</em>, <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#Abstract.Map.applyJacobianT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute \(\mathrm{x}=[\mathrm{J}_{\mathrm{H}}(\mathrm{v})]^{\star}\mathrm{y}\)
 where</p>
 <ul class="simple">
@@ -456,7 +456,7 @@ current <code class="xref py py-class docutils literal"><span class="pre">LinOp<
 <code class="descname">makeComposition_</code><span class="sig-paren">(</span><em>this</em>, <em>G</em><span class="sig-paren">)</span><a class="headerlink" href="#Abstract.LinOp.makeComposition_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reimplemented from parent class <code class="xref py py-class docutils literal"><span class="pre">Map</span></code>.
 If \(\mathrm{G}\) is a <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>, constructs a <code class="xref py py-class docutils literal"><span class="pre">LinOpComposition</span></code>
-object to compose the current LinOp (this) with the given <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>\(\mathrm{G}\). 
+object to compose the current LinOp (this) with the given <code class="xref py py-class docutils literal"><span class="pre">LinOp</span></code>\(\mathrm{G}\).
 Otherwise the composition will be a <code class="xref py py-class docutils literal"><span class="pre">MapComposition</span></code>.</p>
 </dd></dl>
 
@@ -478,7 +478,7 @@ Otherwise the composition will be a <code class="xref py py-class docutils liter
 <dl class="method">
 <dt id="Abstract.LinOp.makeHtH">
 <code class="descname">makeHtH</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Abstract.LinOp.makeHtH" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compose the Adjoint Map \(\mathrm{H}^{\star}\) with 
+<dd><p>Compose the Adjoint Map \(\mathrm{H}^{\star}\) with
 \(\mathrm{H}\). Returns a new map \(\mathrm{M=H}^{\star} \mathrm{H}\)</p>
 <p>Calls the method <code class="xref py py-meth docutils literal"><span class="pre">makeHtH_()</span></code></p>
 </dd></dl>
@@ -493,7 +493,7 @@ Otherwise the composition will be a <code class="xref py py-class docutils liter
 <dl class="method">
 <dt id="Abstract.LinOp.makeInversion_">
 <code class="descname">makeInversion_</code><span class="sig-paren">(</span><em>this</em><span class="sig-paren">)</span><a class="headerlink" href="#Abstract.LinOp.makeInversion_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a <code class="xref py py-class docutils literal"><span class="pre">LinOpInversion</span></code> corresponding to 
+<dd><p>Constructs a <code class="xref py py-class docutils literal"><span class="pre">LinOpInversion</span></code> corresponding to
 \(\mathrm{H}^{-1}\)</p>
 </dd></dl>
 
@@ -1421,7 +1421,7 @@ gradient; 1: stochastic gradient descent; 2: equally spaced indices)</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0',
+            VERSION:'1.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
